@@ -8,6 +8,8 @@ int	is_builtin(t_cmd	*cmd)
 	// 	return (ft_cd(cmd.start));
 	if (ft_strcmp(cmd->start->str, "echo") == 0)
 		return (ft_echo(cmd->start));
+	if (ft_strcmp(cmd->start->str, "pwd") == 0)
+		return (ft_pwd(g_my_envp));
 	if (ft_strcmp(cmd->start->str, "export") == 0)
 		return (ft_export(cmd->start));
 	if (ft_strcmp(cmd->start->str, "env") == 0)
@@ -33,7 +35,7 @@ int	main(int ac, char **av, char **envp)
 	printf("\necho -n hello there | cat -n | ls\n");
 	while (cmd.exit == 0)
 	{
-		input = readline("Minishelly$ ");
+		input = readline("\033[0;32mMinishelly$\033[0m ");
 		if (strlen(input) > 0)
 			add_history(input);
 		parse(input, &cmd);

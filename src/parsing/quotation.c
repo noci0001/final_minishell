@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 12:45:37 by snocita          ###   ########.fr       */
+/*   Updated: 2023/06/30 20:01:30 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int quote_check(t_cmd *cmd, char **line)
 	(void)cmd;
     if (quotes(*line, 2147483647))
     {
-        printf("Minishelly: syntax error with open quotes\n");
+        printf("\033[0;32mMinishelly$\033[0m: syntax error with open quotes\n");
         // if (line != NULL)
         // {
         //     free_double_arr(line);
