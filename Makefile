@@ -1,7 +1,7 @@
 NAME	= minishell
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -I headers/ -I libft/libft.a
+CFLAGS		= -Wall -Wextra -Werror -g -I headers/ -I libft/libft.a
 RM			= rm -rf
 
 LIBFT		= -L libft -lft
@@ -32,7 +32,6 @@ all:		$(NAME)
 $(NAME):	$(OBJ_DIR) $(OBJ)
 	@make -sC libft/
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
-	@mv src/main/main.o src/debug/debug.o src/parsing/*.o src/builtins/*.o src/utils/*.o ./obj
 	@touch src/debug/debugging.txt
 
 %.o: %.c
@@ -52,3 +51,6 @@ fclean:
 	@rm -rf src/debug/debugging.txt
 
 re:		fclean all
+
+norm:
+	@mv src/main/main.o src/debug/debug.o src/parsing/*.o src/builtins/*.o src/utils/*.o ./obj

@@ -22,16 +22,26 @@ int	is_builtin(t_cmd	*cmd)
 	return (0);
 }
 
+void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)
+{
+	if (ac != 1)
+		exit(1);
+	(void)av; 
+	obtain_envp(cmd, envp);
+}
+
 int	main(int ac, char **av, char **envp)
 {
-    (void)av;
 	char	*input;
-    t_cmd   cmd;
+	t_cmd	cmd;
 
-	if (ac != 1)
-		return (0);
 	ft_debug();
-	g_my_envp = obtain_envp(envp);
+	init_struct(ac, av, envp, &cmd);
+	input = NULL;
+	cmd.start = NULL;
+	cmd.exit = 0;
+	cmd.ret = 0;
+	cmd.start = NULL;
 	printf("\necho -n hello there | cat -n | ls\n");
 	while (cmd.exit == 0)
 	{
@@ -42,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 		if (cmd.start != NULL && check_line(&cmd, cmd.start))
 		{
 			if (is_builtin(&cmd) == 1)
-				printf("builtin executed!\n");
+				printf("\n\nbuiltin executed!\n");
 				// execute();
 		}
 		free_token(cmd.start);

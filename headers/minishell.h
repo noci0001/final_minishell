@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 18:43:36 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/01 15:02:32 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 // MINISHELL NAME
 # define MINISHELL_NAME "\033[32mMinishelly\033[0m"
 
+# define BUFF_SIZE 4096 
+
 //CHECK IF TO LEAVE
 # define EMPTY 0
 # define CMD 1
-# define FLAG 2
-# define ARG 3
-# define TRUNC 4
-# define APPEND 5
-# define INPUT 6
-# define PIPE 7
-# define END 8
+# define ARG 2
+# define TRUNC 3
+# define APPEND 4
+# define INPUT 5
+# define PIPE 6
+# define END 7
 
 # define SKIP 1
 # define NOSKIP 0
@@ -67,16 +68,22 @@ typedef struct s_cmd	t_cmd;
 
 typedef struct s_token
 {
-    char			*str;
-    int				type;
-    struct s_token *prev;
-    struct s_token *next;
-} t_token;
+	char			*str;
+	int				type;
+	struct s_token	*prev;
+	struct s_token	*next;
+}					t_token;
+
+typedef struct s_env
+{
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 struct s_cmd
 {
 	t_token	*start;
-	char	**evnp;
+	t_env	*env;
 	int		exit;
 	int		ret;
 };
@@ -102,15 +109,15 @@ void	redirection_out(char *str);
 void	here_doc(char *str);
 void	double_redirection(char *str);
 char	**allocate_args(char **words_of_program, int i);
-int		ft_env(char	**g_my_envp);
+int		ft_env(t_env *env);
 int		ft_pwd(char	**g_my_envp);
 int		ft_export(t_token	*token);
 char	**obtain_double_array(char **double_array);
-char	**obtain_envp(char **envp);
+int		obtain_envp(t_cmd	*cmd, char **envp);
 char	*check_string_to_export(char	*to_export);
 void	ft_debug(void);
 void	debug_write(char *str, int id);
-void	debug_token_interception(char *token, int	token_type);
+void	debug_token_interception(char *token, int token_type);
 char	*get_time(void);
 void	create_header(void);
 void	debug_get_full_input(char *str);
@@ -119,7 +126,7 @@ void	print_linked(t_cmd *head);
 void	update_envp(char	*value_to_add);
 void	update_envp_pwd(char **g_my_envp, char *new_pwd);
 int		check_line(t_cmd *cmd, t_token *token);
-int 	ft_echo(t_token *token);
+int		ft_echo(t_token *token);
 int		ft_cd(t_cmd	*input_struct, char **g_my_envp);
 int		check_nb_args(char **args);
 char	*ft_get_env(char	**envp, char	*value_to_fetch);
@@ -127,11 +134,11 @@ char	*get_value_before_equal(char	*str);
 void	remove_quote(char **cmd);
 char	*delete_quote_tok(char *tok);
 char	*apply_delete(char *tok, int *i);
-void    parse(char	*line, t_cmd *cmd);
-int     quote_check(t_cmd *cmd, char **line);
-int     quotes(char *line, int index);
-char    *space_line(char *line);
-char    *space_alloc(char *line);
+void	parse(char	*line, t_cmd *cmd);
+int		quote_check(t_cmd *cmd, char **line);
+int		quotes(char *line, int index);
+char	*space_line(char *line);
+char	*space_alloc(char *line);
 int		is_sep(char *line, int i);
 t_token	*get_tokens(char *line);
 void	ft_skip_space(const char *str, int *i);
@@ -144,6 +151,8 @@ int		is_type(t_token *token, int type);
 int		is_types(t_token *token, char *types);
 int		is_last_valid_arg(t_token *token);
 void	free_token(t_token *start);
-void    print_double_array(char **str);
+void	print_double_array(char **str);
+int		check_for_duplicates(char	*to_export);
+void	init_struct(int ac, char **av, char **envp, t_cmd *cmd);
 
 #endif

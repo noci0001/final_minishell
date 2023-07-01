@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+         #
+#    By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 20:13:14 by snocita           #+#    #+#              #
-#    Updated: 2023/06/30 19:14:01 by snocita          ###   ########.fr        #
+#    Updated: 2023/07/01 13:04:12 by snocita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(NAME): $(OBJ)
 
 clean: 
 	@$(RM) *.o
-	@rm -rf obj/
+	@rm -rf $(OBJ)
 
 fclean: clean
 	@$(RM) $(NAME)

@@ -1,0 +1,22 @@
+
+
+	Sat Jul  1 14:59:39 2023
+
+			✨-----------🐚 🐚 🐚-------------------------✨
+			✨ Start of MINISHELL	  Debugging Session ✨
+			✨---------- 🐚 🐚 🐚 ------------------------✨
+
+
+
+Intercepted input:
+		🥇 eho 🥇
+
+Token incercepted: eho
+Token type: 🧠 CMD 🧠
+
+Intercepted input:
+		🥇 exit 🥇
+
+Token incercepted: exit
+Token type: 🧠 CMD 🧠
+
