@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:30:59 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 20:05:25 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 15:20:02 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-extern char	**g_my_envp;
-
-int	ft_pwd(char **g_my_envp)
+int	ft_pwd(t_env	*env)
 {
 	char	*pwd;
 
-	pwd = ft_get_env(g_my_envp, "PWD=");
-	ft_putendl_fd(pwd, 1);
+	pwd = ft_get_env(env, "PWD=");
+	ft_putendl_fd(pwd + 5, 1);
 	return (1);
 }

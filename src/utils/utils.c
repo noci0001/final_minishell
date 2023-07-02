@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/01 13:02:28 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 17:21:00 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 extern char	**g_my_envp;
 
-int	check_for_duplicates(char	*to_export)
-{
-	int		i;
-	char	*value_in_envp;
+// int	check_for_duplicates(char	*to_export)
+// {
+// 	int		i;
+// 	char	*value_in_envp;
 
-	i = 0;
-	while (g_my_envp[i])
-	{
-		value_in_envp = get_value_before_equal(g_my_envp[i]);
-		if (ft_strncmp(value_in_envp, to_export, ft_strlen(value_in_envp)) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
+// 	i = 0;
+// 	while (g_my_envp[i])
+// 	{
+// 		value_in_envp = get_value_before_equal(g_my_envp[i]);
+// 		if (ft_strncmp(value_in_envp, to_export, ft_strlen(value_in_envp)) == 0)
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (-1);
+// }
 
 char	**obtain_double_array(char **double_array)
 {
@@ -86,19 +86,65 @@ int	check_line(t_cmd *cmd, t_token *token)
 	return (1);
 }
 
-char	*ft_get_env(char	**envp, char	*value_to_fetch)
+char	*ft_get_env(t_env *env, char *value_to_fetch)
 {
-	int	i;
-
-	i = 0;
-	while (envp[i])
+	while (env->value && env->next != NULL)
 	{
-		if (ft_strncmp(envp[i], value_to_fetch, \
+		if (ft_strncmp(env->value, value_to_fetch, \
 			ft_strlen(value_to_fetch)) == 0)
-			return (envp[i] + 5);
-		i++;
+			return (env->value);
+		env = env->next;
 	}
 	return (NULL);
 }
 
+int	cmd_validation(t_cmd	*cmd)
+{
+	char	*path;
+	char	**splitted_env;
+	int		i;
+	char	*tmp1;
+	char	*tmp2;
 
+	i = 0;
+	path = ft_get_env(cmd->env, "PATH=") + 5;
+	// printf("path -> %s\n", path + 5);
+	splitted_env = ft_split(path, ':');
+	while (splitted_env[i])
+	{
+		tmp1 = ft_strjoin(splitted_env[i], "/");
+		tmp2 = ft_strjoin(tmp1, (cmd->start->str));
+		printf("tmp2 => %s\n", tmp2);
+		free(tmp1);
+		if (access(tmp2, X_OK) == 0)
+		{
+			printf("cmd is valid!\n");
+			if (cmd->start->type == 1)
+				cmd->start->path = tmp2;
+			printf("path of cmd is -> %s\n", cmd->start->path);
+			free(tmp2);
+			return (1);
+		}
+		free(tmp2);
+		i++;
+	}
+	printf("NOT VALID\n");
+	return (0);
+}
+
+size_t	size_env(t_env *lst)
+{
+	size_t	lst_len;
+
+	lst_len = 0;
+	while (lst && lst->next != NULL)
+	{
+		if (lst->value != NULL)
+		{
+			lst_len += ft_strlen(lst->value);
+			lst_len++;
+		}
+		lst = lst->next;
+	}
+	return (lst_len);
+}

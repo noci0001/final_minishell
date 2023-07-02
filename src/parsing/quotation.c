@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/01 14:32:33 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 17:37:20 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	parse(char	*line, t_cmd *cmd)
 {
 	t_token	*token;
 
-	debug_get_full_input(line);
+	// debug_get_full_input(line);
 	if (quote_check(cmd, &line))
 		return ;
 	line = space_line(line);
@@ -159,7 +159,7 @@ void	parse(char	*line, t_cmd *cmd)
 	{
 		if (is_type(token, ARG))
 			type_arg(token, 0);
-		debug_token_interception(token->str, token->type);
+		// debug_token_interception(token->str, token->type);
 		token = token->next;
 	}
 }

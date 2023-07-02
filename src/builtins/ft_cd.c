@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:43:04 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 18:01:35 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 15:22:58 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-extern char	**g_my_envp;
 
 int	check_nb_args(char **args)
 {

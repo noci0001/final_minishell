@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/01 15:02:32 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 17:31:25 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_token
 {
 	char			*str;
 	int				type;
+	char			*path;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
@@ -86,16 +87,17 @@ struct s_cmd
 	t_env	*env;
 	int		exit;
 	int		ret;
+	char	*input;
 };
 
 typedef struct s_valid
 {
-	int		spaces;
-	int		path;
-	char	*env;
-	char	**splitted_env;
-	char	*tmp1;
-	char	*tmp2;
+	int				spaces;
+	int				path;
+	struct s_env	*env;
+	char			**splitted_env;
+	char			*tmp1;
+	char			*tmp2;
 }	t_valid;
 
 t_cmd	*create_linked_list(char *input);
@@ -110,7 +112,7 @@ void	here_doc(char *str);
 void	double_redirection(char *str);
 char	**allocate_args(char **words_of_program, int i);
 int		ft_env(t_env *env);
-int		ft_pwd(char	**g_my_envp);
+int		ft_pwd(t_env	*env);
 int		ft_export(t_token	*token);
 char	**obtain_double_array(char **double_array);
 int		obtain_envp(t_cmd	*cmd, char **envp);
@@ -129,7 +131,7 @@ int		check_line(t_cmd *cmd, t_token *token);
 int		ft_echo(t_token *token);
 int		ft_cd(t_cmd	*input_struct, char **g_my_envp);
 int		check_nb_args(char **args);
-char	*ft_get_env(char	**envp, char	*value_to_fetch);
+char	*ft_get_env(t_env *env, char *value_to_fetch);
 char	*get_value_before_equal(char	*str);
 void	remove_quote(char **cmd);
 char	*delete_quote_tok(char *tok);
@@ -154,5 +156,15 @@ void	free_token(t_token *start);
 void	print_double_array(char **str);
 int		check_for_duplicates(char	*to_export);
 void	init_struct(int ac, char **av, char **envp, t_cmd *cmd);
+int		is_builtin(t_cmd	*cmd);
+void	free_env(t_env *env);
+void	execution(t_cmd	*cmd, t_token	*token);
+char	**cmd_tab(t_token *start);
+void	program_exit(t_cmd	*cmd);
+int		run_cmd(char **args, t_env *env, t_cmd	*cmd);
+int		cmd_validation(t_cmd *cmd);
+char	*env_to_str_func(t_env *lst);
+size_t	size_env(t_env *lst);
+void	free_tab(char **tab);
 
 #endif

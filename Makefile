@@ -18,11 +18,14 @@ PARSING		= quotation token tokens type
 
 UTILS		= free print utils
 
+EXECUTION	= execution
+
 SRC			= $(addsuffix .c, $(addprefix src/builtins/, $(BUILTINS))) \
 			$(addsuffix .c, $(addprefix src/main/, $(MAIN))) \
 			$(addsuffix .c, $(addprefix src/parsing/, $(PARSING))) \
 			$(addsuffix .c, $(addprefix src/utils/, $(UTILS))) \
 			$(addsuffix .c, $(addprefix src/debug/, $(DEBUG))) \
+			$(addsuffix .c, $(addprefix src/execution/, $(EXECUTION))) \
 
 OBJ			= $(SRC:c=o)
 OBJ_DIR		= obj
