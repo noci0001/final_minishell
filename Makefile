@@ -49,7 +49,8 @@ clean:
 
 fclean:
 	@make fclean -C libft/
-	@rm -f obj/$(OBJ)
+	@rm -f obj/*.o
+	@rm -rf obj/
 	@rm -f $(NAME)
 	@rm -rf src/debug/debugging.txt
 
