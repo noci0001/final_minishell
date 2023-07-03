@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:21:22 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 18:04:33 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 14:58:05 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	obtain_envp(t_cmd	*cmd, char **envp)
 	int		i;
 
 	env = malloc(sizeof(t_env));
-	if (!env)
+	env->prev = malloc(sizeof(t_env));
+	if (!env && !env->head)
 		return (1);
 	env->value = ft_strdup(envp[0]);
 	env->next = NULL;
@@ -32,6 +33,7 @@ int	obtain_envp(t_cmd	*cmd, char **envp)
 			return (1);
 		new->value = ft_strdup(envp[i]);
 		new->next = NULL;
+		new->prev = env;
 		env->next = new;
 		env = new;
 		i++;
@@ -77,5 +79,5 @@ int	ft_env(t_env *env)
 	}
 	if (env)
 		ft_putendl_fd(env->value, 1);
-	return (0);
+	return (1);
 }

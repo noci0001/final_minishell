@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 20:06:39 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 15:10:46 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,23 @@ int	is_builtin(t_cmd	*cmd)
 	printf("checking if builtin!\n");
 	// if (ft_strcmp(cmd.start->str, "cd") == 0)
 	// 	return (ft_cd(cmd.start));
-	if (ft_strcmp(cmd->start->str, "echo") == 0)
+	if (is_exact_match(cmd->start->str, "echo"))
 		return (ft_echo(cmd->start));
-	if (ft_strcmp(cmd->start->str, "pwd") == 0)
+	else if (is_exact_match(cmd->start->str, "pwd"))
 		return (ft_pwd(cmd->env));
-	if (ft_strcmp(cmd->start->str, "export") == 0)
+	else if (is_exact_match(cmd->start->str, "export"))
 		return (ft_export(cmd, cmd->env));
-	if (ft_strcmp(cmd->start->str, "env") == 0)
+	else if (is_exact_match(cmd->start->str, "unset"))
+		return (ft_unset(cmd, cmd->env));
+	else if (is_exact_match(cmd->start->str, "env"))
 		return (ft_env(cmd->env));
-	if (ft_strcmp(cmd->start->str, "exit") == 0)
+	else if (is_exact_match(cmd->start->str, "exit"))
 	{
-		cmd->exit = 1;
+		program_exit(cmd);
 		return (1);
 	}
 	else
-		printf("NOT A BUILTIN!\n");
-	return (0);
+		return (1);
 }
 
 int	run_cmd(char **args, t_env *env, t_cmd	*cmd)
@@ -107,55 +108,12 @@ void	program_exit(t_cmd	*cmd)
 void	execution(t_cmd	*cmd, t_token	*token)
 {
 	char	**cmd_array;
-	int		i;
 
 	cmd_array = cmd_tab(token);
-	// printf("printing array...\n");
-	// print_double_array(cmd_array);
-	// printf("\n");
-	i = 0;
-	// while (cmd_array && cmd_array[i])
-	// {
-		//HERE IS WHERE EXPANSION HAPPEN
-		// if (cmd_array[i] == '$')
-		// {
-			// cmd_array[i] = expansion(cmd_array[i]);
-			//expansion
-		// }
-		// printf("checking for expansion...\n");
-	// 	i++;
-	//}
-	if (cmd_array && ft_strcmp(cmd_array[0], "exit") == 0)
-		program_exit(cmd);
-	else if (cmd_array && (is_builtin(cmd) != 1))
+	// if (cmd_array && ft_strcmp(cmd_array[0], "exit") == 0)
+	// 	program_exit(cmd);
+	if (cmd_array && (is_builtin(cmd) == 0))
 		cmd->ret = run_cmd(cmd_array, cmd->env, cmd);
 	// free_double_arr(cmd_array);
+	return ;
 }
-
-// int			magic_box(char *path, char **args, t_env *env, t_mini *mini)
-// {
-// 	char	**env_array;
-// 	char	*ptr;
-// 	int		ret;
-
-// 	ret = SUCCESS;
-// 	g_sig.pid = fork();
-// 	if (g_sig.pid == 0)
-// 	{
-// 		ptr = env_to_str(env);
-// 		env_array = ft_split(ptr, '\n');
-// 		ft_memdel(ptr);
-// 		if (ft_strchr(path, '/') != NULL)
-// 			execve(path, args, env_array);
-// 		ret = error_message(path);
-// 		free_tab(env_array);
-// 		free_token(mini->start);
-// 		exit(ret);
-// 	}
-// 	else
-// 		waitpid(g_sig.pid, &ret, 0);
-// 	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
-// 		return (g_sig.exit_status);
-// 	ret = (ret == 32256 || ret == 32512) ? ret / 256 : !!ret;
-// 	return (ret);
-// }

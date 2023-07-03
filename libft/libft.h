@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:18:34 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:45:17 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 14:02:18 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ char	**ft_double_strdup(char **envp);
 void	*ft_memdel(void *ptr);
 void	ft_skip_space(const char *str, int *i);
 int		is_sep(char *line, int i);
+int		is_exact_match(char *x_str, char *y_str);
 
 #endif

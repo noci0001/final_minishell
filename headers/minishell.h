@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 18:10:39 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 14:25:40 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ typedef struct s_token
 typedef struct s_env
 {
 	char			*value;
+	struct s_env	*head;
 	struct s_env	*next;
+	struct s_env	*prev;
 }					t_env;
 
 struct s_cmd
@@ -165,5 +167,6 @@ int		cmd_validation(t_cmd *cmd);
 char	*env_to_str_func(t_env *lst);
 size_t	size_env(t_env *lst);
 void	free_tab(char **tab);
+int 	ft_unset(t_cmd  *cmd, t_env *env);
 
 #endif

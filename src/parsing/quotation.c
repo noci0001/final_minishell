@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:49:48 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 16:36:02 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ char	*space_line(char *line)
 	while (new && line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
-			new[j++] = (char)(-line[i++]);
+		{
+			new[j++] = line[i++];
+		}
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
 			new[j++] = ' ';

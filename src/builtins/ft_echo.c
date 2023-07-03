@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:21:01 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 17:59:46 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 16:25:29 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int ft_echo(t_token *token)
 {   
     int print_new_line = 1;
     token = token->next;
+    if (token->str[0] == '$')
+        printf("IS THIS DOLLARS SIGN? %c\n", token->str[0]);
     while (token->str != NULL && token->type == ARG)
     {
         if (token->str[0] == '-' && token->str[1] == 'n')

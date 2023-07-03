@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 13:21:14 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 20:21:26 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/03 15:57:36 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,48 +99,48 @@ int	ft_export(t_cmd	*cmd, t_env	*envp)
 	int		i;
 	char	*to_substitute;
 	t_env	*next_node;
-
-	printf("\tft_export\n");
+	
+	printf("string is=>%s\n", cmd->start->next->str);
+	next_node = malloc(sizeof(t_env));
+	if (!next_node)
+		return (0);
 	to_export = NULL;
 	//does export have arg ? if yes, continue, else show env !!
 	if (cmd->start->next == NULL)
-		ft_env(envp);
-	else
 	{
-		to_export = cmd->start->next->str;
-		printf("variable to export is -> %s\n", to_export);
-		value = get_value_before_equal(to_export);
-		if (value == NULL)
-		{
-			free(value);
-			return (0);
-		}
-		printf("Value is ->%s\n", value);
-		i = 0;
-		while (envp != NULL)
-		{
-			printf("Comparing value -> %s\n", to_substitute);
-			to_substitute = get_value_before_equal(envp->value);
-			if ((ft_strncmp(to_substitute, value, \
-				ft_strlen(to_substitute)) == 0) \
-				&& (ft_strncmp(to_substitute, value, ft_strlen(value)) == 0))
-			{
-				printf("TO SUBSTITUTE -> %s\n", envp->value);
-				next_node = envp->next;
-				free(envp->value);
-				envp->value = ft_strdup(to_export);
-				printf("NEW VALUE IS ->%s\n", to_export);
-				envp->next = next_node;
-				return (1);
-			}
-			else
-				envp = envp->next;
-		}
-		printf("NO MATCH FOUND, CREATE NEW NODE");
-		next_node = malloc(sizeof(t_env));
-		next_node->value = to_export;
-		next_node->next = NULL;
-		envp->next = next_node;
+		ft_env(envp);
+		return (1);	
 	}
-	return (0);
+	to_export = cmd->start->next->str;
+	printf("variable to export is -> %s\n", to_export);
+	value = get_value_before_equal(to_export);
+	if (value == NULL)
+	{
+		free(value);
+		return (0);
+	}
+	printf("Value is ->%s\n", value);
+	i = 0;
+	while (envp->next != NULL)
+	{
+	printf("Comparing value -> %s\n", to_substitute);
+		to_substitute = get_value_before_equal(envp->value);
+		if (is_exact_match(to_substitute, value) == 1)
+		{
+			printf("TO SUBSTITUTE -> %s\n", envp->value);
+			next_node = envp->next;
+			free(envp->value);
+			envp->value = ft_strdup(to_export);
+			printf("NEW VALUE IS ->%s\n", to_export);
+			envp->next = next_node;
+			return (1);
+		}
+		envp = envp->next;
+	}
+	printf("NO MATCH FOUND, CREATE NEW NODE\n");
+	next_node->value = ft_strdup(to_export);
+	next_node->prev = envp;
+	next_node->next = NULL;
+	envp->next = next_node;
+	return (1);
 }
