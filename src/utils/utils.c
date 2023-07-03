@@ -6,13 +6,11 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:21:00 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 20:02:07 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-extern char	**g_my_envp;
 
 // int	check_for_duplicates(char	*to_export)
 // {
@@ -114,21 +112,21 @@ int	cmd_validation(t_cmd	*cmd)
 	{
 		tmp1 = ft_strjoin(splitted_env[i], "/");
 		tmp2 = ft_strjoin(tmp1, (cmd->start->str));
-		printf("tmp2 => %s\n", tmp2);
+		// printf("tmp2 => %s\n", tmp2);
 		free(tmp1);
 		if (access(tmp2, X_OK) == 0)
 		{
-			printf("cmd is valid!\n");
+			// printf("cmd is valid!\n");
 			if (cmd->start->type == 1)
 				cmd->start->path = tmp2;
-			printf("path of cmd is -> %s\n", cmd->start->path);
+			// printf("path of cmd is -> %s\n", cmd->start->path);
 			free(tmp2);
 			return (1);
 		}
 		free(tmp2);
 		i++;
 	}
-	printf("NOT VALID\n");
+	// printf("NOT VALID\n");
 	return (0);
 }
 
@@ -148,3 +146,4 @@ size_t	size_env(t_env *lst)
 	}
 	return (lst_len);
 }
+

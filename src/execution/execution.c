@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:32:02 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 20:06:39 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	is_builtin(t_cmd	*cmd)
 	if (ft_strcmp(cmd->start->str, "pwd") == 0)
 		return (ft_pwd(cmd->env));
 	if (ft_strcmp(cmd->start->str, "export") == 0)
-		// return (ft_export(cmd->start));
-		printf("ADD EXPORT FUNCTION\n");
+		return (ft_export(cmd, cmd->env));
 	if (ft_strcmp(cmd->start->str, "env") == 0)
 		return (ft_env(cmd->env));
 	if (ft_strcmp(cmd->start->str, "exit") == 0)
@@ -111,24 +110,27 @@ void	execution(t_cmd	*cmd, t_token	*token)
 	int		i;
 
 	cmd_array = cmd_tab(token);
-	printf("printing array...\n");
-	print_double_array(cmd_array);
-	printf("\n");
+	// printf("printing array...\n");
+	// print_double_array(cmd_array);
+	// printf("\n");
 	i = 0;
-	while (cmd_array && cmd_array[i])
-	{
+	// while (cmd_array && cmd_array[i])
+	// {
 		//HERE IS WHERE EXPANSION HAPPEN
-		printf("checking for expansion...\n");
-		i++;
-	}
+		// if (cmd_array[i] == '$')
+		// {
+			// cmd_array[i] = expansion(cmd_array[i]);
+			//expansion
+		// }
+		// printf("checking for expansion...\n");
+	// 	i++;
+	//}
 	if (cmd_array && ft_strcmp(cmd_array[0], "exit") == 0)
 		program_exit(cmd);
 	else if (cmd_array && (is_builtin(cmd) != 1))
 		cmd->ret = run_cmd(cmd_array, cmd->env, cmd);
 	// free_double_arr(cmd_array);
 }
-// && (is_builtin(cmd) != 1)
-
 
 // int			magic_box(char *path, char **args, t_env *env, t_mini *mini)
 // {

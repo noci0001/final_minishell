@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 11:18:34 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/29 16:36:19 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 17:45:17 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int     ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
@@ -70,5 +70,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 char	**ft_double_strdup(char **envp);
 void	*ft_memdel(void *ptr);
 void	ft_skip_space(const char *str, int *i);
+int		is_sep(char *line, int i);
 
 #endif

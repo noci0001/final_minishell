@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:37:20 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 17:49:48 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ int	is_last_valid_arg(t_token *token)
 			return (1);
 		return (0);
 	}
-	else
-		return (0);
-}
-
-int	is_sep(char *line, int i)
-{
-	if (i > 0 && line[i - 1] == '\\' && ft_strchr("<>|;", line[i]))
-		return (0);
-	else if (ft_strchr("<>|;", line[i]) && quotes(line, i) == 0)
-		return (1);
 	else
 		return (0);
 }
@@ -92,29 +82,29 @@ char	*space_line(char *line)
 //If open is 0, it means there are no open quotes.
 //If open is 1, there is an open double quote.
 //If open is 2 instead, it means there is an open single quote.
-int	quotes(char *line, int index)
-{
-	int	i;
-	int	open;
+// int	quotes(char *line, int index)
+// {
+// 	int	i;
+// 	int	open;
 
-	i = 0;
-	open = 0;
-	while (line[i] && i != index)
-	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (open == 0 && line[i] == '\"')
-			open = 1;
-		else if (open == 0 && line[i] == '\'')
-			open = 2;
-		else if (open == 1 && line[i] == '\"')
-			open = 0;
-		else if (open == 2 && line[i] == '\'')
-			open = 0;
-		i++;
-	}
-	return (open);
-}
+// 	i = 0;
+// 	open = 0;
+// 	while (line[i] && i != index)
+// 	{
+// 		if (i > 0 && line[i - 1] == '\\')
+// 			;
+// 		else if (open == 0 && line[i] == '\"')
+// 			open = 1;
+// 		else if (open == 0 && line[i] == '\'')
+// 			open = 2;
+// 		else if (open == 1 && line[i] == '\"')
+// 			open = 0;
+// 		else if (open == 2 && line[i] == '\'')
+// 			open = 0;
+// 		i++;
+// 	}
+// 	return (open);
+// }
 
 //PROBLEM FREEING LINE
 //a.out(9369,0x2046a2e00) malloc: *** error for object 0x30ca566f0: pointer being freed was not allocated

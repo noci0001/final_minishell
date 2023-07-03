@@ -6,7 +6,7 @@
 #    By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 20:13:14 by snocita           #+#    #+#              #
-#    Updated: 2023/07/01 13:04:12 by snocita          ###   ########.fr        #
+#    Updated: 2023/07/02 17:47:47 by snocita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ FT_GEN		=	ft_atoi ft_bzero ft_calloc ft_double_strdup \
 				ft_itoa ft_skip_space ft_split ft_tolower ft_tolower
 
 FT_IS		=	ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint \
-				ft_isspace
+				ft_isspace ft_issep
 
 FT_MEM		=	ft_memchr ft_memcmp ft_memcpy ft_memdel ft_memmove ft_memset
 

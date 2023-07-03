@@ -6,30 +6,32 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 13:21:14 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 14:54:21 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 20:21:26 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-// char	*get_value_before_equal(char	*str)
-// {
-// 	char	*value;
-// 	size_t	i;
+char	*get_value_before_equal(char	*str)
+{
+	char	*value;
+	size_t	i;
 
-// 	i = 0;
-// 	while (str[i] && str[i] != '=')
-// 		i++;
-// 	value = malloc(sizeof(char) * (i + 1));
-// 	i = 0;
-// 	while (str[i] && str[i] != '=')
-// 	{
-// 		value[i] = str[i];
-// 		i++;
-// 	}
-// 	value[i] = '\0';
-// 	return (value);
-// }
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	value = malloc(sizeof(char) * (i + 1));
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		value[i] = str[i];
+		i++;
+	}
+	value[i] = '\0';
+	if (ft_strcmp(str, value) == 0)
+		return (NULL);
+	return (value);
+}
 
 // char	**increase_envp(char **envp, char  *toadd)
 // {
@@ -89,3 +91,56 @@
 // 	}
 // 	return (0);
 // }
+
+int	ft_export(t_cmd	*cmd, t_env	*envp)
+{
+	char	*to_export;
+	char	*value;
+	int		i;
+	char	*to_substitute;
+	t_env	*next_node;
+
+	printf("\tft_export\n");
+	to_export = NULL;
+	//does export have arg ? if yes, continue, else show env !!
+	if (cmd->start->next == NULL)
+		ft_env(envp);
+	else
+	{
+		to_export = cmd->start->next->str;
+		printf("variable to export is -> %s\n", to_export);
+		value = get_value_before_equal(to_export);
+		if (value == NULL)
+		{
+			free(value);
+			return (0);
+		}
+		printf("Value is ->%s\n", value);
+		i = 0;
+		while (envp != NULL)
+		{
+			printf("Comparing value -> %s\n", to_substitute);
+			to_substitute = get_value_before_equal(envp->value);
+			if ((ft_strncmp(to_substitute, value, \
+				ft_strlen(to_substitute)) == 0) \
+				&& (ft_strncmp(to_substitute, value, ft_strlen(value)) == 0))
+			{
+				printf("TO SUBSTITUTE -> %s\n", envp->value);
+				next_node = envp->next;
+				free(envp->value);
+				envp->value = ft_strdup(to_export);
+				printf("NEW VALUE IS ->%s\n", to_export);
+				envp->next = next_node;
+				return (1);
+			}
+			else
+				envp = envp->next;
+		}
+		printf("NO MATCH FOUND, CREATE NEW NODE");
+		next_node = malloc(sizeof(t_env));
+		next_node->value = to_export;
+		next_node->next = NULL;
+		envp->next = next_node;
+	}
+	return (0);
+}

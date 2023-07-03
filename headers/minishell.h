@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:31:25 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/02 18:10:39 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_valid
 	char			**splitted_env;
 	char			*tmp1;
 	char			*tmp2;
-}	t_valid;
+}					t_valid;
 
 t_cmd	*create_linked_list(char *input);
 t_cmd	*malloc_node(void);
@@ -113,7 +113,7 @@ void	double_redirection(char *str);
 char	**allocate_args(char **words_of_program, int i);
 int		ft_env(t_env *env);
 int		ft_pwd(t_env	*env);
-int		ft_export(t_token	*token);
+int		ft_export(t_cmd	*cmd, t_env	*envp);
 char	**obtain_double_array(char **double_array);
 int		obtain_envp(t_cmd	*cmd, char **envp);
 char	*check_string_to_export(char	*to_export);
@@ -141,7 +141,6 @@ int		quote_check(t_cmd *cmd, char **line);
 int		quotes(char *line, int index);
 char	*space_line(char *line);
 char	*space_alloc(char *line);
-int		is_sep(char *line, int i);
 t_token	*get_tokens(char *line);
 void	ft_skip_space(const char *str, int *i);
 int		ignore_sep(char *line, int i);
