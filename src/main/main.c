@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 14:48:26 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:45:09 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	main(int ac, char **av, char **envp)
 			add_history(cmd.input);
 		parse(cmd.input, &cmd);
 		if (cmd.start != NULL && check_line(&cmd, cmd.start))
-		{
-			printf("\texecution...\n");
 			execution(&cmd, cmd.start);
-		}
 		free_token(cmd.start);
 	}
 	free_env(cmd.env);

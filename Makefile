@@ -16,7 +16,7 @@ DEBUG		= debug
 
 PARSING		= quotation token tokens type
 
-UTILS		= free print utils
+UTILS		= free print utils utils2
 
 EXECUTION	= execution
 

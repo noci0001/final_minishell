@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+         #
+#    By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 20:13:14 by snocita           #+#    #+#              #
-#    Updated: 2023/07/03 14:03:37 by snocita          ###   ########.fr        #
+#    Updated: 2023/07/04 15:46:25 by snocita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ FT_PUT		=	ft_putchar_fd ft_putendl_fd ft_putnbr_fd ft_putstr_fd
 
 FT_STR		=	ft_strchr ft_strcmp ft_strdup ft_striteri ft_strjoin \
 				ft_strlcat ft_strlcpy ft_strlen ft_strmapi ft_strncmp \
-				ft_strnstr ft_strrchr ft_strtrim ft_substr
+				ft_strnstr ft_strrchr ft_strtrim ft_substr ft_strdel
 
 SRC = $(addsuffix .c, $(addprefix ft_gen/, $(FT_GEN))) \
 	  $(addsuffix .c, $(addprefix ft_is/, $(FT_IS))) \

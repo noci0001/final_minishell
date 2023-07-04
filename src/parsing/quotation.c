@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/03 16:36:02 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:50:44 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ char	*space_line(char *line)
 	while (new && line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
-		{
 			new[j++] = line[i++];
-		}
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
 			new[j++] = ' ';
@@ -77,52 +75,16 @@ char	*space_line(char *line)
 			new[j++] = line[i++];
 	}
 	new[j] = '\0';
-	// ft_memdel(line);
+	ft_memdel(line);
 	return (new);
 }
 
-//If open is 0, it means there are no open quotes.
-//If open is 1, there is an open double quote.
-//If open is 2 instead, it means there is an open single quote.
-// int	quotes(char *line, int index)
-// {
-// 	int	i;
-// 	int	open;
-
-// 	i = 0;
-// 	open = 0;
-// 	while (line[i] && i != index)
-// 	{
-// 		if (i > 0 && line[i - 1] == '\\')
-// 			;
-// 		else if (open == 0 && line[i] == '\"')
-// 			open = 1;
-// 		else if (open == 0 && line[i] == '\'')
-// 			open = 2;
-// 		else if (open == 1 && line[i] == '\"')
-// 			open = 0;
-// 		else if (open == 2 && line[i] == '\'')
-// 			open = 0;
-// 		i++;
-// 	}
-// 	return (open);
-// }
-
-//PROBLEM FREEING LINE
-//a.out(9369,0x2046a2e00) malloc: *** error for object 0x30ca566f0: pointer being freed was not allocated
-//a.out(9369,0x2046a2e00) malloc: *** set a breakpoint in malloc_error_break to debug
-//[1]    9369 abort
 // check for open quotes
 int	quote_check(t_cmd *cmd, char **line)
 {
 	if (quotes(*line, 2147483647))
 	{
 		printf("\033[0;32mMinishelly$\033[0m: syntax error with open quotes\n");
-		if (line != NULL)
-		{
-			free_double_arr(line);
-			printf("line freed!\n");
-		}
 		ft_memdel(*line);
 		cmd->ret = 2;
 		cmd->start = NULL;
@@ -137,7 +99,6 @@ void	parse(char	*line, t_cmd *cmd)
 {
 	t_token	*token;
 
-	// debug_get_full_input(line);
 	if (quote_check(cmd, &line))
 		return ;
 	line = space_line(line);
@@ -151,7 +112,6 @@ void	parse(char	*line, t_cmd *cmd)
 	{
 		if (is_type(token, ARG))
 			type_arg(token, 0);
-		// debug_token_interception(token->str, token->type);
 		token = token->next;
 	}
 }

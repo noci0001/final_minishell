@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 11:58:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 13:49:18 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:43:15 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	free_env(t_env *env)
 	}
 	ft_memdel(env->value);
 	ft_memdel(env);
+}
+
+void	free_env_list(t_env *env)
+{
+	t_env	*temp;
+
+	while (env)
+	{
+		temp = env;
+		env = env->next;
+		ft_strdel(&temp->value);
+		ft_strdel(&temp->key_value[0]);
+		ft_strdel(&temp->key_value[1]);
+		free(temp);
+	}
 }
 
 void	free_token(t_token *start)

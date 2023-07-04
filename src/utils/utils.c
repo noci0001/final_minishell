@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 20:02:07 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 17:20:56 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,27 +106,23 @@ int	cmd_validation(t_cmd	*cmd)
 
 	i = 0;
 	path = ft_get_env(cmd->env, "PATH=") + 5;
-	// printf("path -> %s\n", path + 5);
 	splitted_env = ft_split(path, ':');
 	while (splitted_env[i])
 	{
 		tmp1 = ft_strjoin(splitted_env[i], "/");
 		tmp2 = ft_strjoin(tmp1, (cmd->start->str));
-		// printf("tmp2 => %s\n", tmp2);
 		free(tmp1);
 		if (access(tmp2, X_OK) == 0)
 		{
-			// printf("cmd is valid!\n");
 			if (cmd->start->type == 1)
 				cmd->start->path = tmp2;
-			// printf("path of cmd is -> %s\n", cmd->start->path);
 			free(tmp2);
 			return (1);
 		}
 		free(tmp2);
 		i++;
 	}
-	// printf("NOT VALID\n");
+	free_double_arr(splitted_env);
 	return (0);
 }
 

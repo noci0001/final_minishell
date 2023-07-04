@@ -3,81 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 15:31:37 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 19:09:53 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:25:18 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	number_words(const char *array, char c)
+static size_t	ft_countword(char const *s, char c)
 {
-	int	i;
-	int	counter;
+	size_t	count;
 
-	i = 0;
-	counter = 0;
-	while (array[i])
+	if (!*s)
+		return (0);
+	count = 0;
+	while (*s)
 	{
-		if (array[i] != c)
-		{
-			while (array[i] && array[i] != c)
-				i++;
-			counter++;
-		}
-		else
-			i++;
+		while (*s == c)
+			s++;
+		if (*s)
+			count++;
+		while (*s != c && *s)
+			s++;
 	}
-	return (counter);
-}
-
-static int	size_of_word(char const *s, char c, int i)
-{
-	int	size;
-
-	size = 0;
-	while (s[i] != c && s[i])
-	{
-		size++;
-		i++;
-	}
-	return (size);
-}
-
-static void	my_free(char **str, int j)
-{
-	while (j-- > 0)
-		free(str[j]);
-	free (str);
+	return (count);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**array;
-	int		size;
+	char	**lst;
+	size_t	word_len;
 	int		i;
-	int		j;
 
+	lst = (char **)malloc((ft_countword(s, c) + 1) * sizeof(char *));
+	if (!s || !lst)
+		return (0);
 	i = 0;
-	j = -1;
-	array = (char **)malloc(sizeof(char *) * (number_words(s, c) + 1));
-	if (!array)
-		return (NULL);
-	while (++j < number_words(s, c))
+	while (*s)
 	{
-		while (s[i] == c)
-			i++;
-		size = size_of_word(s, c, i);
-		array[j] = ft_substr(s, i, size);
-		if (array[j] == NULL)
+		while (*s == c && *s)
+			s++;
+		if (*s)
 		{
-			my_free(array, j);
-			return (NULL);
+			if (!ft_strchr(s, c))
+				word_len = ft_strlen(s);
+			else
+				word_len = ft_strchr(s, c) - s;
+			lst[i++] = ft_substr(s, 0, word_len);
+			s += word_len;
 		}
-		i += size;
 	}
-	array[j] = 0;
-	return (array);
+	lst[i] = NULL;
+	return (lst);
 }
