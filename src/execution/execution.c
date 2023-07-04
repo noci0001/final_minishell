@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/03 15:10:46 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 13:43:15 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,38 @@ char	**cmd_tab(t_token *start)
 	t_token	*token;
 	char	**tab;
 	int		i;
+	int		j;
 
 	if (!start)
 		return (NULL);
 	token = start->next;
-	i = 2;
+	i = 1;
+	j = 0;
 	while (token && token->type < TRUNC)
 	{
 		token = token->next;
 		i++;
 	}
-	tab = malloc(sizeof(char *) * i);
+	tab = malloc(sizeof(char *) * (i + 1));
 	if (!(tab))
 		return (NULL);
-	token = start->next;
-	tab[0] = start->str;
-	i = 1;
+	token = start;
+	i = 0;
 	while (token && token->type < TRUNC)
 	{
-		tab[i++] = token->str;
+		tab[i] = ft_strdup(token->str);
+		//cleanup
+		if (!tab[i])
+		{
+			while (j < i)
+			{
+				free(tab[j]);
+				j++;
+			}
+			free(tab);
+			return (NULL);
+		}
+		i++;
 		token = token->next;
 	}
 	tab[i] = NULL;

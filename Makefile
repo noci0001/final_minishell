@@ -51,6 +51,7 @@ fclean:
 	@make fclean -C libft/
 	@rm -f obj/*.o
 	@rm -rf obj/
+	@rm src/main/*.o src/builtins/*.o src/utils/*.o src/parsing/*.o src/execution/*.o src/debug/*.o
 	@rm -f $(NAME)
 	@rm -rf src/debug/debugging.txt
 

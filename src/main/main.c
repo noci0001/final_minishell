@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:36:29 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:49:52 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)
 {
 	if (ac != 1)
 		exit(1);
-	(void)av; 
+	(void) av;
 	obtain_envp(cmd, envp);
 }
 

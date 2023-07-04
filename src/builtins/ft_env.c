@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:21:22 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/03 14:58:05 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 12:53:49 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	obtain_envp(t_cmd	*cmd, char **envp)
 	int		i;
 
 	env = malloc(sizeof(t_env));
-	env->prev = malloc(sizeof(t_env));
 	if (!env && !env->head)
 		return (1);
 	env->value = ft_strdup(envp[0]);
@@ -47,7 +46,8 @@ char	*env_to_str_func(t_env *lst)
 	int		i;
 	int		j;
 
-	if (!(env = malloc(sizeof(char) * size_env(lst) + 1)))
+	env = malloc(sizeof(char) * size_env(lst) + 1);
+	if (!(env))
 		return (NULL);
 	i = 0;
 	while (lst && lst->next != NULL)
@@ -57,9 +57,7 @@ char	*env_to_str_func(t_env *lst)
 			j = 0;
 			while (lst->value[j])
 			{
-				env[i] = lst->value[j];
-				i++;
-				j++;
+				env[i++] = lst->value[j++];
 			}
 		}
 		if (lst->next->next != NULL)
