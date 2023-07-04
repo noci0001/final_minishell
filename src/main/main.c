@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 12:49:52 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/04 14:48:26 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int ac, char **av, char **envp)
 	t_cmd	cmd;
 
 	init_struct(ac, av, envp, &cmd);
-	cmd.input = NULL;
 	cmd.start = NULL;
+	cmd.input = NULL;
 	cmd.exit = 0;
 	cmd.ret = 0;
 	cmd.start = NULL;
