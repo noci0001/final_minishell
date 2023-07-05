@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:07 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 17:07:37 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 18:58:28 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,31 @@
 
 int	ft_unset(t_cmd *cmd, t_env *env)
 {
-	char	*to_unset;
+	char	*value_before_equal;
+	t_env	*node_ptr;
 
-	if (cmd->start->next != NULL)
-		to_unset = cmd->start->next->str;
-	else
+	if (is_arg_absent(cmd, env) == 1)
 	{
 		ft_putendl_fd("unset: not enough arguments", 1);
 		return (1);
 	}
-	while (env->next != NULL)
+	else
 	{
-		if (get_value_before_equal(to_unset) != NULL)
-			return (0);
-		if (is_exact_match(env->key_value[0], to_unset) == 1)
-			env->prev->next = env->next;
-		env = env->next;
+		value_before_equal = get_value_before_equal(cmd->start->next->str);
+		if (value_before_equal != NULL)
+		{
+			free(value_before_equal);
+			return (1);
+		}
 	}
-	if (is_exact_match(get_value_before_equal(env->value), to_unset) == 1)
-		env->prev->next = env->next;
+	node_ptr = is_inside_envp(env, cmd);
+	if (node_ptr != NULL)
+	{
+		node_ptr->prev->next = node_ptr->next;
+		node_ptr->next->prev = node_ptr->prev;
+		free_double_arr(node_ptr->key_value);
+		free(node_ptr->value);
+		free(node_ptr);
+	}
 	return (1);
 }

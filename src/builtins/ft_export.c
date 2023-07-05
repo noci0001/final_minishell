@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 13:21:14 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 18:13:53 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 18:32:31 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_value_before_equal(char	*str)
 	return (value);
 }
 
-int	is_inside_envp(t_env	*envp, t_cmd	*cmd)
+t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd)
 {
 	char	*to_export;
 	char	*value;
@@ -58,39 +58,27 @@ int	is_inside_envp(t_env	*envp, t_cmd	*cmd)
 		if (is_exact_match(value, to_export) == 1)
 		{
 			free(to_export);
-			return (1);
+			return (envp);
 		}
 		envp = envp->next;
 	}
 	free(to_export);
-	return (0);
+	return (NULL);
 }
 
 int	ft_export(t_cmd	*cmd, t_env	*envp)
 {
 	t_env	*next_node;
+	t_env	*node_ptr;
 
 	next_node = NULL;
 	if (is_arg_absent(cmd, envp) == 1)
 		return (1);
-	if (is_inside_envp(envp, cmd) == 1)
+	node_ptr = is_inside_envp(envp, cmd);
+	if (node_ptr != NULL)
 	{
-		while (is_exact_match(envp->key_value[0], get_value_before_equal(cmd->start->next->str)) != 1)
-		{
-			// printf("KEY VALUE: %s\n",envp->key_value[0]);
-			// printf("STRING: %s\n",get_value_before_equal(cmd->start->next->str));
-			// printf("CURR ENVP IS %s\n", envp->value);
-			envp = envp->next;
-		}
-		// next_node = malloc(sizeof(t_env));
-		// if (!next_node)
-		// 	return (1);
-		// next_node->value = ft_strdup(cmd->start->next->str);
-		// next_node->prev = envp;
-		// next_node->next = envp->next;
-		// if (envp->next != NULL)
-		// 	envp->next->prev = next_node;
-		// envp->next = next_node;
+		free(node_ptr->value);
+		node_ptr->value = ft_strdup(cmd->start->next->str);
 		return (1);
 	}
 	else
