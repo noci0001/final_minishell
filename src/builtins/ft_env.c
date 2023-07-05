@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:21:22 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 17:15:08 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 17:16:02 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ int	obtain_envp(t_cmd *cmd, char **envp)
 		}
 		new->value = ft_strdup(envp[i]);
 		key_value_array = ft_split(envp[i], '=');
-		new->key_value[0] = key_value_array[0];
-		new->key_value[1] = key_value_array[1];
-		free_double_arr(key_value_array);
+		new->key_value[0] = ft_strdup(key_value_array[0]);
+		new->key_value[1] = ft_strdup(key_value_array[1]);
 		new->prev = env;
 		if (env)
 			env->next = new;

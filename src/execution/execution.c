@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 16:56:32 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 18:17:22 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,6 @@ char	**cmd_tab(t_token *start)
 	return (tab);
 }
 
-int	is_builtin(t_cmd	*cmd)
-{
-	// if (ft_strcmp(cmd.start->str, "cd") == 0)
-	// 	return (ft_cd(cmd.start));
-	if (is_exact_match(cmd->start->str, "echo"))
-		return (ft_echo(cmd->start));
-	else if (is_exact_match(cmd->start->str, "pwd"))
-		return (ft_pwd(cmd->env));
-	else if (is_exact_match(cmd->start->str, "export"))
-		return (ft_export(cmd, cmd->env));
-	else if (is_exact_match(cmd->start->str, "unset"))
-		return (ft_unset(cmd, cmd->env));
-	else if (is_exact_match(cmd->start->str, "env"))
-		return (ft_env(cmd->env));
-	else if (is_exact_match(cmd->start->str, "exit"))
-	{
-		program_exit(cmd);
-		return (1);
-	}
-	else
-		return (0);
-}
-
 int	run_cmd(char **args, t_env *env, t_cmd	*cmd)
 {
 	char	*env_to_str;
@@ -126,6 +103,8 @@ void	execution(t_cmd	*cmd, t_token	*token)
 
 	if (is_builtin(cmd) == 1)
 		return ;
+	else if (is_builtin(cmd) == -1)
+		program_exit(cmd);
 	cmd_array = cmd_tab(token);
 	if (cmd_array)
 		cmd->ret = run_cmd(cmd_array, cmd->env, cmd);

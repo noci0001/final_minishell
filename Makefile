@@ -10,7 +10,7 @@ HEADER		= minshell.h
 
 MAIN		= main
 
-BUILTINS	= ft_cd ft_echo ft_env ft_export ft_pwd ft_unset
+BUILTINS	= is_builtin ft_cd ft_echo ft_env ft_export ft_pwd ft_unset
 
 DEBUG		= debug
 

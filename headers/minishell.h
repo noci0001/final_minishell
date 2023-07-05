@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 17:20:30 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 16:38:01 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	update_envp(char	*value_to_add);
 void	update_envp_pwd(char **g_my_envp, char *new_pwd);
 int		check_line(t_cmd *cmd, t_token *token);
 int		ft_echo(t_token *token);
-int		ft_cd(t_cmd	*input_struct, char **g_my_envp);
+int		ft_cd(t_cmd	*cmd, t_env	*env);
 int		check_nb_args(char **args);
 char	*ft_get_env(t_env *env, char *value_to_fetch);
 char	*get_value_before_equal(char	*str);

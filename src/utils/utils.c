@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 17:20:56 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 16:47:22 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ char	*ft_get_env(t_env *env, char *value_to_fetch)
 {
 	while (env->value && env->next != NULL)
 	{
-		if (ft_strncmp(env->value, value_to_fetch, \
-			ft_strlen(value_to_fetch)) == 0)
+		if (is_exact_match(env->key_value[0], value_to_fetch) == 1)
 			return (env->value);
 		env = env->next;
 	}
@@ -105,7 +104,10 @@ int	cmd_validation(t_cmd	*cmd)
 	char	*tmp2;
 
 	i = 0;
-	path = ft_get_env(cmd->env, "PATH=") + 5;
+	printf("HERE\n");
+	path = ft_get_env(cmd->env, "PATH") + 4;
+	printf("HERE1\n");
+	//printf("path is -> %s\n", path);
 	splitted_env = ft_split(path, ':');
 	while (splitted_env[i])
 	{
