@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 21:07:10 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 21:43:05 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,6 @@ int		ft_unset(t_cmd *cmd, t_env *env);
 void	free_env_list(t_env *env);
 int		is_arg_absent(t_cmd	*cmd, t_env	*envp, int check);
 t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd, int check);
+void	add_key_value(t_env	*env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 13:21:14 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 21:14:13 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 21:52:07 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_env *is_inside_envp(t_env *envp, t_cmd *cmd, int check)
 	printf("VALUE TO EXPORT: %s\n", to_export);
 	while (envp->next != NULL)
 	{
-		printf("CHECKING: %s\n", envp->value);
+		printf("CHECKING: %s\n", envp->key_value[0]);
 		if (is_exact_match(envp->key_value[0], to_export) == 1)
 		{
 			printf("MATCH FOUND: %s\n", envp->value);
@@ -90,17 +90,18 @@ int ft_export(t_cmd *cmd, t_env *envp)
 	}
 	else
 	{
-		while (envp->next != NULL)
+		while (envp != NULL)
 			envp = envp->next;
 		next_node = malloc(sizeof(t_env));
 		if (!next_node)
 			return (1);
 		next_node->value = ft_strdup(cmd->start->next->str);
+		add_key_value(next_node);
 		next_node->prev = envp;
 		next_node->next = NULL;
 		envp->next = next_node;
 	}
-	envp = cmd->env;
+	// envp = cmd->env;
 	return (1);
 }
 
