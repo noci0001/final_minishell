@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 18:17:22 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 19:10:50 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	program_exit(t_cmd	*cmd)
 {
 	cmd->exit = 1;
 	free_token(cmd->start);
-	free_env(cmd->env);
-	free(cmd->input);
+	// free_env(cmd->env);
+	// free(cmd->input);
 	exit(1);
 }
 

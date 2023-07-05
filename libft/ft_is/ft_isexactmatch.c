@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isexactmatch.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/04 17:26:22 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 19:06:28 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

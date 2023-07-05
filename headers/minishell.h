@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 18:56:48 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/05 21:07:10 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # define MINISHELL_NAME "\033[32mMinishelly\033[0m"
 
 # define BUFF_SIZE 4096 
+
+# define UNSET 0
+# define EXPORT 1
 
 //CHECK IF TO LEAVE
 # define EMPTY 0
@@ -169,7 +172,7 @@ size_t	size_env(t_env *lst);
 void	free_tab(char **tab);
 int		ft_unset(t_cmd *cmd, t_env *env);
 void	free_env_list(t_env *env);
-int		is_arg_absent(t_cmd	*cmd, t_env	*envp);
-t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd);
+int		is_arg_absent(t_cmd	*cmd, t_env	*envp, int check);
+t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd, int check);
 
 #endif
