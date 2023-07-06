@@ -6,27 +6,11 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 12:11:55 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 17:30:28 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-// int	check_for_duplicates(char	*to_export)
-// {
-// 	int		i;
-// 	char	*value_in_envp;
-
-// 	i = 0;
-// 	while (g_my_envp[i])
-// 	{
-// 		value_in_envp = get_value_before_equal(g_my_envp[i]);
-// 		if (ft_strncmp(value_in_envp, to_export, ft_strlen(value_in_envp)) == 0)
-// 			return (i);
-// 		i++;
-// 	}
-// 	return (-1);
-// }
 
 char	**obtain_double_array(char **double_array)
 {
@@ -104,10 +88,7 @@ int	cmd_validation(t_cmd	*cmd)
 	char	*tmp2;
 
 	i = 0;
-	printf("ENTERING CMD_VALIDATION\n");
 	path = ft_get_env(cmd->env, "PATH") + 4;
-	printf("HERE1\n");
-	//printf("path is -> %s\n", path);
 	splitted_env = ft_split(path, ':');
 	while (splitted_env[i])
 	{
