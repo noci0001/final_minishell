@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 11:25:18 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 12:54:20 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <curses.h>
+# include <sys/wait.h>
 // tcsetattr, tcgetattr, tgetent,
 //	tgetflag, tgetnum, tgetstr, tgoto, tputs: termios.h
 typedef struct s_cmd	t_cmd;

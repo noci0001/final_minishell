@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 17:08:48 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 19:09:44 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 12:53:38 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ char	**ft_double_strdup(char **envp)
 {
 	char	**myenvp;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	while (envp[i])
 		i++;
 	i += 1000;
