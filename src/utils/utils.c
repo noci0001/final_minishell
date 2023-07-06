@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 16:47:22 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 12:11:55 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**obtain_double_array(char **double_array)
 		ret[i] = malloc(sizeof(char) * (ft_strlen(double_array[i]) + 1));
 		if (!ret[i])
 			return (NULL);
-		strlcpy(ret[i], double_array[i], (ft_strlen(double_array[i]) + 1));
+		ft_strlcpy(ret[i], double_array[i], (ft_strlen(double_array[i]) + 1));
 		i++;
 	}
 	return (ret);
@@ -104,7 +104,7 @@ int	cmd_validation(t_cmd	*cmd)
 	char	*tmp2;
 
 	i = 0;
-	printf("HERE\n");
+	printf("ENTERING CMD_VALIDATION\n");
 	path = ft_get_env(cmd->env, "PATH") + 4;
 	printf("HERE1\n");
 	//printf("path is -> %s\n", path);

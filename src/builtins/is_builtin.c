@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:51:59 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 11:24:22 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 12:09:59 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_builtin(t_cmd	*cmd)
 {
-	// if (is_exact_match(cmd->start->str, "cd") == 0)
-	// 	return (ft_cd(cmd, cmd->env));
+	if (is_exact_match(cmd->start->str, "cd"))
+		return (ft_cd(cmd, cmd->env));
 	if (is_exact_match(cmd->start->str, "echo"))
 		return (ft_echo(cmd->start, cmd, cmd->env));
 	else if (is_exact_match(cmd->start->str, "pwd"))

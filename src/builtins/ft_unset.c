@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:07 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 11:56:32 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 12:04:22 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 		value_before_equal = get_value_before_equal(value_before_equal);
 		if (value_before_equal != NULL)
 		{
-			printf("VBE is -> %s\n", value_before_equal);
 			free(value_before_equal);
 			return (1);
 		}
@@ -36,7 +35,6 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 	node_ptr = is_inside_envp(env, cmd, UNSET);
 	if (node_ptr != NULL)
 	{
-		printf("node_ptr is -> %s\n", node_ptr->value);
 		node_ptr->prev->next = node_ptr->next;
 		if (node_ptr->next != NULL)
 			node_ptr->next->prev = node_ptr->prev;

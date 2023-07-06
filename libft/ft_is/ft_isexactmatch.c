@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 19:06:28 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 12:10:28 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	is_exact_match(char *x_str, char *y_str)
 	is_y_equal_to_x = ft_strncmp(x_str, y_str, len_y);
 
 	if (is_x_equal_to_y == 0 && is_y_equal_to_x == 0)
+	{
 		return (1);
+	}
 	return (0);
 }
