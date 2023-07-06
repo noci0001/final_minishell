@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 21:43:05 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 11:25:18 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	print_linked(t_cmd *head);
 void	update_envp(char	*value_to_add);
 void	update_envp_pwd(char **g_my_envp, char *new_pwd);
 int		check_line(t_cmd *cmd, t_token *token);
-int		ft_echo(t_token *token);
+int		ft_echo(t_token *token, t_cmd	*cmd, t_env	*env);
 int		ft_cd(t_cmd	*cmd, t_env	*env);
 int		check_nb_args(char **args);
 char	*ft_get_env(t_env *env, char *value_to_fetch);

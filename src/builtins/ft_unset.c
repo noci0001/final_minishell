@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:07 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 20:15:12 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/06 11:56:32 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 	{
 		printf("node_ptr is -> %s\n", node_ptr->value);
 		node_ptr->prev->next = node_ptr->next;
-		node_ptr->next->prev = node_ptr->prev;
-		free_double_arr(node_ptr->key_value);
-		free(node_ptr->value);
-		free(node_ptr);
+		if (node_ptr->next != NULL)
+			node_ptr->next->prev = node_ptr->prev;
+		// free_double_arr(node_ptr->key_value);
+		// free(node_ptr->value);
+		// free(node_ptr);
 	}
 	return (1);
 }
