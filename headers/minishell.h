@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 12:54:20 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/07 20:32:07 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,25 @@ typedef struct s_valid
 	char			*tmp2;
 }					t_valid;
 
+void	init_struct(int ac, char **av, char **envp, t_cmd *cmd);
+int		obtain_envp(t_cmd	*cmd, char **envp);
+void	add_key_value(t_env	*env);
+void	parse(char	*line, t_cmd *cmd);
+int		quote_check(t_cmd *cmd, char **line);
+char	*space_line(char *line);
+char	*space_alloc(char *line);
+void	squish_args(t_cmd *cmd);
+t_token	*prev_sep(t_token *token, int skip);
+int		is_type(t_token *token, int type);
+int		is_types(t_token *token, char *types);
+int		is_last_valid_arg(t_token *token);
+int		check_line(t_cmd *cmd, t_token *token);		
+int		is_builtin(t_cmd	*cmd);
+int		ft_echo(t_token *token, t_cmd	*cmd, t_env	*env);
+int		ft_cd(t_cmd	*cmd, t_env	*env);
+int		ft_env(t_env *env);
+int		ft_pwd(t_env	*env);
+int		ft_unset(t_cmd *cmd, t_env *env);
 t_cmd	*create_linked_list(char *input);
 t_cmd	*malloc_node(void);
 void	free_double_arr(char **str);
@@ -117,11 +136,8 @@ void	redirection_out(char *str);
 void	here_doc(char *str);
 void	double_redirection(char *str);
 char	**allocate_args(char **words_of_program, int i);
-int		ft_env(t_env *env);
-int		ft_pwd(t_env	*env);
 int		ft_export(t_cmd	*cmd, t_env	*envp);
 char	**obtain_double_array(char **double_array);
-int		obtain_envp(t_cmd	*cmd, char **envp);
 char	*check_string_to_export(char	*to_export);
 void	ft_debug(void);
 void	debug_write(char *str, int id);
@@ -133,35 +149,21 @@ void	debug_get_sectioned_input(char *str);
 void	print_linked(t_cmd *head);
 void	update_envp(char	*value_to_add);
 void	update_envp_pwd(char **g_my_envp, char *new_pwd);
-int		check_line(t_cmd *cmd, t_token *token);
-int		ft_echo(t_token *token, t_cmd	*cmd, t_env	*env);
-int		ft_cd(t_cmd	*cmd, t_env	*env);
 int		check_nb_args(char **args);
 char	*ft_get_env(t_env *env, char *value_to_fetch);
 char	*get_value_before_equal(char	*str);
 void	remove_quote(char **cmd);
 char	*delete_quote_tok(char *tok);
 char	*apply_delete(char *tok, int *i);
-void	parse(char	*line, t_cmd *cmd);
-int		quote_check(t_cmd *cmd, char **line);
 int		quotes(char *line, int index);
-char	*space_line(char *line);
-char	*space_alloc(char *line);
 t_token	*get_tokens(char *line);
 void	ft_skip_space(const char *str, int *i);
 int		ignore_sep(char *line, int i);
 t_token	*next_token(char *line, int *i);
 void	type_arg(t_token *token, int separator);
-void	squish_args(t_cmd *cmd);
-t_token	*prev_sep(t_token *token, int skip);
-int		is_type(t_token *token, int type);
-int		is_types(t_token *token, char *types);
-int		is_last_valid_arg(t_token *token);
 void	free_token(t_token *start);
 void	print_double_array(char **str);
 int		check_for_duplicates(char	*to_export);
-void	init_struct(int ac, char **av, char **envp, t_cmd *cmd);
-int		is_builtin(t_cmd	*cmd);
 void	free_env(t_env *env);
 void	execution(t_cmd	*cmd, t_token	*token);
 char	**cmd_tab(t_token *start);
@@ -171,10 +173,18 @@ int		cmd_validation(t_cmd *cmd);
 char	*env_to_str_func(t_env *lst);
 size_t	size_env(t_env *lst);
 void	free_tab(char **tab);
-int		ft_unset(t_cmd *cmd, t_env *env);
 void	free_env_list(t_env *env);
+int		arg_absent(t_cmd	*cmd, t_env	*envp, int check);
+t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd, int check, char	*str);
+void	redirection_in(char *str);
+void	redirection_out(char *str);
+void	double_redirection(char *str);
+void	here_doc(char *str);
 int		is_arg_absent(t_cmd	*cmd, t_env	*envp, int check);
-t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd, int check);
-void	add_key_value(t_env	*env);
+
+void	check_expansion(t_cmd	*cmd, t_token	*token);
+char	*expansion_string(t_cmd	*cmd, char	*str, int	index);
+void	increase_shlvl(t_env	*env, t_cmd	*cmd);
+int	update_pwd(t_env	*env, char	*cwd);
 
 #endif

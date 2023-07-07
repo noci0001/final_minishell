@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:51:59 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 12:09:59 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/07 18:37:39 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int	is_builtin(t_cmd	*cmd)
 		return (ft_unset(cmd, cmd->env));
 	else if (is_exact_match(cmd->start->str, "env"))
 		return (ft_env(cmd->env));
-	else if (is_exact_match(cmd->start->str, "exit"))
-	{
-		return (-1);
-	}
 	else
 		return (0);
 }

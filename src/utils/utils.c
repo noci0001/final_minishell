@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 17:30:28 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/07 19:25:46 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,17 @@ int	cmd_validation(t_cmd	*cmd)
 	char	*tmp2;
 
 	i = 0;
+	if (cmd->start->str[0] == '.' && cmd->start->str[1] == '/' && (access(cmd->start->str, X_OK) == 0))
+	{
+		printf("Looks like you are trying to execute something...\n");
+		cmd->start->path = cmd->start->str;
+		return (1);
+	}
+	if (cmd->start->str[0] == '/' && (access(cmd->start->str, X_OK) == 0))
+	{
+		cmd->start->path = cmd->start->str;
+		return (1);
+	}
 	path = ft_get_env(cmd->env, "PATH") + 4;
 	splitted_env = ft_split(path, ':');
 	while (splitted_env[i])
@@ -98,7 +109,7 @@ int	cmd_validation(t_cmd	*cmd)
 		if (access(tmp2, X_OK) == 0)
 		{
 			if (cmd->start->type == 1)
-				cmd->start->path = tmp2;
+				cmd->start->path = ft_strdup(tmp2);
 			free(tmp2);
 			return (1);
 		}

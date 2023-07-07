@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:19:43 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 15:50:36 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/07 18:55:15 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	print_double_array(char **str)
 
 	i = 0;
 	while (str[i])
-		printf("%s ", str[i++]);
+		printf("%s\n", str[i++]);
 	return ;
 }

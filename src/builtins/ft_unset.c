@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:07 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 12:04:22 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:34:00 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 			return (1);
 		}
 	}
-	node_ptr = is_inside_envp(env, cmd, UNSET);
+	node_ptr = is_inside_envp(env, cmd, UNSET, NULL);
 	if (node_ptr != NULL)
 	{
 		node_ptr->prev->next = node_ptr->next;

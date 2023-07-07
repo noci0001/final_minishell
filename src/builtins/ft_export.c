@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 13:21:14 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 12:04:11 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:33:54 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ char *get_value_before_equal(char *str)
 	return (value);
 }
 
-t_env *is_inside_envp(t_env *envp, t_cmd *cmd, int check)
+t_env *is_inside_envp(t_env *envp, t_cmd *cmd, int check, char	*str)
 {
 	char *to_export;
 
-	to_export = ft_strdup(cmd->start->next->str);
+	if (str != NULL)
+		to_export = ft_strdup(str);
+	else
+		to_export = ft_strdup(cmd->start->next->str);
 	if (check == EXPORT)
 	{
 		to_export = get_value_before_equal(to_export);
@@ -75,7 +78,7 @@ int ft_export(t_cmd *cmd, t_env *envp)
 	next_node = NULL;
 	if (is_arg_absent(cmd, envp, EXPORT) == 1)
 		return (1);
-	node_ptr = is_inside_envp(envp, cmd, EXPORT);
+	node_ptr = is_inside_envp(envp, cmd, EXPORT, NULL);
 	if (node_ptr != NULL)
 	{
 		free(node_ptr->value);
