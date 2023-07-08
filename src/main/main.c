@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 19:54:21 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:35:53 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)
 	if (ac != 1)
 		exit(1);
 	(void)av;
+	sig_handler();
 	obtain_envp(cmd, envp);
 	increase_shlvl(cmd->env, cmd);
 }

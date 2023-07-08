@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:30:59 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 13:04:01 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 15:14:17 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 int	ft_pwd(t_env	*env)
 {
 	char	*pwd;
+	char	*oldpwd;
 
 	pwd = ft_get_env(env, "PWD");
-	ft_putendl_fd(pwd + 5, 1);
+	oldpwd = ft_get_env(env, "OLDPWD");
+	//should be pwd + 5!
+	ft_putendl_fd(pwd, 1);
+	ft_putendl_fd(oldpwd, 1);
 	return (1);
 }

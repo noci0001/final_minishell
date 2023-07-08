@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 20:32:07 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:37:44 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,12 @@ int		is_arg_absent(t_cmd	*cmd, t_env	*envp, int check);
 void	check_expansion(t_cmd	*cmd, t_token	*token);
 char	*expansion_string(t_cmd	*cmd, char	*str, int	index);
 void	increase_shlvl(t_env	*env, t_cmd	*cmd);
-int	update_pwd(t_env	*env, char	*cwd);
+int		update_pwd(t_env	*env, char	*old_cwd);
+int		navigate_home(t_env	*env, char	*curr_cwd);
+int		navigate_forward(t_env	*env, char	*arg, char	*curr_cwd);
+int		navigate_backward(t_env	*env, char	*curr_cwd);
+void	sig_c(int signal);
+void	sig_d(int signal);
+void	sig_handler(void);
 
 #endif
