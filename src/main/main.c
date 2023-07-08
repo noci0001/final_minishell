@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 16:35:53 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:36:11 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)
 	if (ac != 1)
 		exit(1);
 	(void)av;
-	sig_handler();
 	obtain_envp(cmd, envp);
+	sig_handler();
 	increase_shlvl(cmd->env, cmd);
 }
 
@@ -50,8 +50,9 @@ int	main(int ac, char **av, char **envp)
 	cmd.start = NULL;
 	while (cmd.exit == 0)
 	{
+		sig_handler();
 		cmd.input = readline("\033[0;32mMinishelly$\033[0m ");
-		if (strlen(cmd.input) > 0)
+		if (cmd.input && strlen(cmd.input) > 0)
 			add_history(cmd.input);
 		parse(cmd.input, &cmd);
 		if (cmd.start != NULL && check_line(&cmd, cmd.start))

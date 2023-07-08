@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 19:03:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/06 18:12:30 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:28:59 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void redirection_in(char *str)
 	if (fd == -1)
 		return (ft_putstr_fd("Handling file failed\n", 2));
 	dup2(fd, 0);
+	ft_putstr_fd(str, fd);
 	close(fd);
 }
 
@@ -63,4 +64,24 @@ void here_doc(char *str)
 	fd = open(".serectfile", O_RDONLY, 0777);
 	dup2(fd,0);
 	close(fd);
+}
+
+void	redirection_handler(t_token *token)
+{
+	while (token && token->next != NULL)
+	{
+		if (token->type == HEREDOC)
+		{
+			here_doc(token->next->str);
+			printf("hello\n");
+			return ;
+		}
+		else if (token->type == TRUNC)
+			double_redirection(token->next->str);
+		else if (token->type == APPEND)
+			redirection_out(token->next->str);
+		else if (token->type == INPUT)
+			redirection_in(token->next->str);	
+		token = token->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:32:31 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 16:58:44 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 19:52:10 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void sig_d(int signal)
 {
     if (signal)
     {
-        exit(EXIT_FAILURE);
+        exit(1);
     }
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:52:44 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/02 17:44:07 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:03:47 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		is_types(t_token *token, char *types)
 		return (1);
 	else if (ft_strchr(types, 'P') && is_type(token, PIPE))
 		return (1);
-	else if (ft_strchr(types, 'E') && is_type(token, END))
+	else if (ft_strchr(types, 'E') && is_type(token, HEREDOC))
 		return (1);
 	return (0);
 }
@@ -56,17 +56,6 @@ int		has_type(t_token *token, int type)
 	while (token)
 	{
 		if (is_type(token, type))
-			return (1);
-		token = token->next;
-	}
-	return (0);
-}
-
-int		has_pipe(t_token *token)
-{
-	while (token && is_type(token, END) == 0)
-	{
-		if (is_type(token, PIPE))
 			return (1);
 		token = token->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 19:17:47 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:05:02 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int is_last_valid_arg(t_token *token)
 	if (!token || is_type(token, CMD) || is_type(token, ARG))
 	{
 		prev = prev_sep(token, NOSKIP);
-		if (!prev || is_type(prev, END) || is_type(prev, PIPE))
+		if (!prev || is_type(prev, PIPE))
 			return (1);
 		return (0);
 	}
@@ -62,20 +62,7 @@ char *space_line(char *line)
 	while (new &&line[i])
 	{
 		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
-		{
 			new[j++] = line[i++];
-			// TEMP
-			//  char word_to_expand[50];
-			//  int k = 0;
-			//  while (new[k] != ' ' && new[k])
-			//  {
-			//  	word_to_expand[k] = new[k];
-			//  	k++;
-			//  }
-			//  word_to_expand[k] = '\0';
-			//  printf("WORD IS -> %s\n", word_to_expand);
-			// END TEMP
-		}
 		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
 			new[j++] = ' ';
@@ -135,9 +122,8 @@ void check_expansion(t_cmd *cmd, t_token *token)
 	char *new_value;
 
 	i = 0;
-	if (token->str[0] == '$')
+	if (token->str[0] == '$' && token->exp_disabled != 1)
 	{
-		printf("DOLLARSIGN\n");
 		ret = expansion_string(cmd, token->str, 0);
 		free(token->str);
 		token->str = NULL;
@@ -147,17 +133,14 @@ void check_expansion(t_cmd *cmd, t_token *token)
 	}
 	while (token->str && token->str[i])
 	{
-		if (token->str[i] == '$')
+		if (token->str[i] == '$' && token->exp_disabled != 1)
 		{
 			ret = expansion_string(cmd, token->str, i);
-			printf("EXPAND TO ->%s\n", ret);
-			printf("OLD vlaue %s\n", token->str);
 			new_value = ft_substr(token->str, 0, i);
 			free(token->str);
 			token->str = ft_strjoin(new_value, ret);
 			free(ret);
 			free(new_value);
-			printf("New vlaue %s\n", token->str);
 			break;
 		}
 		i++;
@@ -170,7 +153,6 @@ char *expansion_string(t_cmd *cmd, char *str, int index)
 	t_env *node;
 
 	string = ft_substr(str, ++index, ft_strlen(str));
-	printf("IS THIS IN ENV -> %s\n", string);
 	node = is_inside_envp(cmd->env, cmd, 0, string);
 	if (node != NULL)
 		return (node->key_value[1]);

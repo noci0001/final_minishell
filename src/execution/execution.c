@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 19:19:12 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:40:26 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ char **cmd_tab(t_token *start)
 	while (token && token->type < TRUNC)
 	{
 		tab[i] = token->str;
-		// cleanup
 		if (!tab[i])
 		{
 			while (i > 0)
-			{
 				free(tab[--i]);
-			}
 			free(tab);
 			return (NULL);
 		}
@@ -50,12 +47,11 @@ char **cmd_tab(t_token *start)
 		token = token->next;
 	}
 	tab[i] = NULL;
-	// free tokens
-	while (token)
-	{
-		free(token->str);
-		token = token->next;
-	}
+	// while (token)
+	// {
+	// 	free(token->str);
+	// 	token = token->next;
+	// }
 	return (tab);
 }
 
@@ -79,7 +75,6 @@ int run_cmd(char **args, t_env *env, t_cmd *cmd)
 			env_array = ft_split(env_to_str, '\n');
 			ft_memdel(env_to_str);
 			execve(cmd->start->path, args, env_array);
-			perror("execve");
 			exit(1);
 			free_tab(env_array);
 		}
@@ -105,6 +100,7 @@ void execution(t_cmd *cmd, t_token *token)
 
 	if (is_exact_match(cmd->start->str, "exit"))
 		program_exit(cmd);
+	redirection_handler(token);
 	if (is_builtin(cmd) == 1)
 		return;
 	else

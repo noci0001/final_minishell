@@ -18,7 +18,7 @@ PARSING		= quotation token tokens type
 
 UTILS		= free print utils utils2
 
-EXECUTION	= execution signals
+EXECUTION	= execution signals redirection
 
 SRC			= $(addsuffix .c, $(addprefix src/builtins/, $(BUILTINS))) \
 			$(addsuffix .c, $(addprefix src/main/, $(MAIN))) \

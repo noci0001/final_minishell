@@ -6,7 +6,7 @@
 /*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:40:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 12:26:25 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/08 21:02:22 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,22 @@ t_token	*next_token(char *line, int *i)
 	t_token	*token;
 	int		j;
 	char	c;
+	int		disable_exp;
 
 	j = 0;
 	c = ' ';
+	disable_exp = 0;
 	if (!(token = malloc(sizeof(t_token)))
 	|| !(token->str = malloc(sizeof(char) * next_alloc(line, i))))
 		return (NULL);
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
 		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"'))
+		{
+			if ((ft_strchr(line, '$') != NULL && line[*i] == '\''))
+				token->exp_disabled = 1;	
 			c = line[(*i)++];
+		}
 		else if (c != ' ' && line[*i] == c)
 		{
 			c = ' ';
@@ -134,10 +140,10 @@ void	type_arg(t_token *token, int separator)
 		token->type = APPEND;
 	else if (ft_strcmp(token->str, "<") == 0 && separator == 0)
 		token->type = INPUT;
+	else if (ft_strcmp(token->str, "<<") == 0 && separator == 0)
+		token->type = HEREDOC;
 	else if (ft_strcmp(token->str, "|") == 0 && separator == 0)
 		token->type = PIPE;
-	else if (ft_strcmp(token->str, ";") == 0 && separator == 0)
-		token->type = END;
 	else if (token->prev == NULL || token->prev->type >= TRUNC )
 		token->type = CMD;
 	else
@@ -152,13 +158,17 @@ t_token	*get_tokens(char *line)
 	t_token	*next;
 	int		i;
 	int		sep;
+	int		squote;
 
+	squote = 1;
 	prev = NULL;
 	next = NULL;
 	i = 0;
 	ft_skip_space(line, &i);
 	while (line[i])
 	{
+		// if (line[i] == '\'')
+		// 	squote *= -1;
 		sep = ignore_sep(line, i);
 		next = next_token(line, &i);
 		next->prev = prev;
@@ -168,6 +178,7 @@ t_token	*get_tokens(char *line)
 		type_arg(next, sep);
 		ft_skip_space(line, &i);
 	}
+	// if (squote == 1)
 	if (next)
 		next->next = NULL;
 	while (next && next->prev)
