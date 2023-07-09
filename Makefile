@@ -54,6 +54,7 @@ fclean:
 	@rm src/main/*.o src/builtins/*.o src/utils/*.o src/parsing/*.o src/execution/*.o src/debug/*.o
 	@rm -f $(NAME)
 	@rm -rf src/debug/debugging.txt
+	@rm -rf minishell.dSYM
 
 re:		fclean all
 

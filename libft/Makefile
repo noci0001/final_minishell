@@ -6,7 +6,7 @@
 #    By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 20:13:14 by snocita           #+#    #+#              #
-#    Updated: 2023/07/04 15:46:25 by snocita          ###   ########.fr        #
+#    Updated: 2023/07/09 16:05:41 by snocita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) libft.a
 
 re: fclean all
 	
