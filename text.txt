@@ -1,14 +1,0 @@
-asd
-asd
-asd
-asd
-as
-Minishelly: command asd not found
-[0;32mMinishelly$[0m `
-
-`
-Minishelly: command ` not found
-[0;32mMinishelly$[0m [K[0;32mMinishelly$[0m `exit
-`exit
-Minishelly: command `exit not found
-[0;32mMinishelly$[0m ddxcc'\\\\d

@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:06:38 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:06:40 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:15:24 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	navigate_backward(t_env	*env)
 
 	cwd = getcwd(cwdbuffer, sizeof(cwdbuffer));
 	cwd_len = ft_strlen(cwd);
-
 	while (cwd[cwd_len] != '/')
 		cwd_len--;
 	new_cwd = ft_substr(cwd, 0, cwd_len);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 11:58:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:04:20 by amurawsk         ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:55:55 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../headers/minishell.h"
 
@@ -27,7 +28,7 @@ void	free_env(t_env *env)
 	ft_memdel(env);
 }
 
-void	free_env_list(t_env *env)
+int	free_env_list(t_env *env)
 {
 	t_env	*temp;
 
@@ -40,6 +41,7 @@ void	free_env_list(t_env *env)
 		ft_strdel(&temp->key_value[1]);
 		free(temp);
 	}
+	return (1);
 }
 
 void	free_token(t_token *start)

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:23:34 by amurawsk         ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:52:12 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../headers/minishell.h"
 
-void increase_shlvl(t_env	*env, t_cmd	*cmd)
+void	increase_shlvl(t_env	*env, t_cmd	*cmd)
 {
 	t_env	*shlvl;
 	char	*level;

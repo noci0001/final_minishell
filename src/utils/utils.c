@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:04:25 by amurawsk         ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:51:37 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../headers/minishell.h"
 
@@ -45,22 +46,13 @@ int	check_line(t_cmd *cmd, t_token *token)
 		if (is_types(token, "TAI")
 			&& (!token->next || is_types(token->next, "TAIPE")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", 2);
-			if (token->next)
-				ft_putstr_fd(token->next->str, 2);
-			else
-				return (0);
-			ft_putendl_fd("'", 2);
-			cmd->ret = 258;
+			unexpected_token_message(token, cmd, 1);
 			return (0);
 		}
 		if (is_types(token, "PE")
 			&& (!token->prev || !token->next || is_types(token->prev, "TAIPE")))
 		{
-			ft_putstr_fd("bash: syntax error near unexpected token `", 2);
-			ft_putstr_fd(token->str, 2);
-			ft_putendl_fd("'", 2);
-			cmd->ret = 258;
+			unexpected_token_message(token, cmd, 0);
 			return (0);
 		}
 		token = token->next;
@@ -79,28 +71,13 @@ char	*ft_get_env(t_env *env, char *value_to_fetch)
 	return (NULL);
 }
 
-int	cmd_validation(t_cmd	*cmd)
+int	check_splitted_env(t_cmd *cmd, char **splitted_env)
 {
-	char	*path;
-	char	**splitted_env;
 	int		i;
 	char	*tmp1;
 	char	*tmp2;
 
 	i = 0;
-	if (cmd->start->str[0] == '.' && cmd->start->str[1] == '/' && (access(cmd->start->str, X_OK) == 0))
-	{
-		printf("Looks like you are trying to execute something...\n");
-		cmd->start->path = cmd->start->str;
-		return (1);
-	}
-	if (cmd->start->str[0] == '/' && (access(cmd->start->str, X_OK) == 0))
-	{
-		cmd->start->path = cmd->start->str;
-		return (1);
-	}
-	path = ft_get_env(cmd->env, "PATH") + 4;
-	splitted_env = ft_split(path, ':');
 	while (splitted_env[i])
 	{
 		tmp1 = ft_strjoin(splitted_env[i], "/");
@@ -117,24 +94,28 @@ int	cmd_validation(t_cmd	*cmd)
 		free(tmp2);
 		i++;
 	}
-	free_double_arr(splitted_env);
 	return (0);
 }
 
-size_t	size_env(t_env *lst)
+int	cmd_validation(t_cmd	*cmd)
 {
-	size_t	lst_len;
+	char	*path;
+	char	**splitted_env;
 
-	lst_len = 0;
-	while (lst && lst->next != NULL)
+	if (cmd->start->str[0] == '.' && cmd->start->str[1] == '/'
+		&& (access(cmd->start->str, X_OK) == 0))
 	{
-		if (lst->value != NULL)
-		{
-			lst_len += ft_strlen(lst->value);
-			lst_len++;
-		}
-		lst = lst->next;
+		cmd->start->path = cmd->start->str;
+		return (1);
 	}
-	return (lst_len);
+	if (cmd->start->str[0] == '/' && (access(cmd->start->str, X_OK) == 0))
+	{
+		cmd->start->path = cmd->start->str;
+		return (1);
+	}
+	path = ft_get_env(cmd->env, "PATH") + 4;
+	splitted_env = ft_split(path, ':');
+	if (check_splitted_env(cmd, splitted_env) == 0)
+		free_double_arr(splitted_env);
+	return (0);
 }
-

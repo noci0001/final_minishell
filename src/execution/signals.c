@@ -3,39 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 14:32:31 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 14:04:45 by amurawsk         ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:50:49 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../headers/minishell.h"
 
-void sig_c(int signal)
+void	sig_c(int signal)
 {
-    if (signal)
-    {
-        //rl_replace_line("", 0);
-        ft_putchar_fd('\n', STDOUT_FILENO);
-        rl_on_new_line();
-        rl_redisplay();
-    }
-}
-void sig_d(int signal)
-{
-    if (signal)
-    {
-        exit(1);
-    }
+	if (signal)
+	{
+		//rl_replace_line("", 0);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
-
-void sig_handler(void)
+void	sig_d(int signal)
 {
-    signal(SIGINT, sig_c);
-    signal(SIGTSTP, sig_d);
-    signal(SIGQUIT, SIG_IGN);
+	if (signal)
+	{
+		exit(1);
+	}
+}
+
+void	sig_handler(void)
+{
+	signal(SIGINT, sig_c);
+	signal(SIGTSTP, sig_d);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 // can be usefull in procesess

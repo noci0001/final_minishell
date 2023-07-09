@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 19:03:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:28:59 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:39:47 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void redirection_in(char *str)
+void	redirection_in(char *str)
 {
 	int	fd;
 
@@ -24,7 +24,7 @@ void redirection_in(char *str)
 	close(fd);
 }
 
-void redirection_out(char *str)
+void	redirection_out(char *str)
 {
 	int		fd;
 
@@ -35,9 +35,10 @@ void redirection_out(char *str)
 	close(fd);
 }
 
-void double_redirection(char *str)
+void	double_redirection(char *str)
 {
 	int		fd;
+
 	fd = open(str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 		return (ft_putstr_fd("Handling file failed\n", 2));
@@ -45,7 +46,7 @@ void double_redirection(char *str)
 	close(fd);
 }
 
-void here_doc(char *str)
+void	here_doc(char *str)
 {
 	int		fd;
 	char	*line;
@@ -62,7 +63,7 @@ void here_doc(char *str)
 	}
 	close(fd);
 	fd = open(".serectfile", O_RDONLY, 0777);
-	dup2(fd,0);
+	dup2(fd, 0);
 	close(fd);
 }
 
@@ -81,7 +82,7 @@ void	redirection_handler(t_token *token)
 		else if (token->type == APPEND)
 			redirection_out(token->next->str);
 		else if (token->type == INPUT)
-			redirection_in(token->next->str);	
+			redirection_in(token->next->str);
 		token = token->next;
 	}
 }

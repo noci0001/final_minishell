@@ -14,9 +14,9 @@ BUILTINS	= is_builtin ft_cd ft_cd2 ft_echo ft_env ft_export ft_pwd ft_unset
 
 DEBUG		= debug
 
-PARSING		= quotation token tokens type
+PARSING		= quotation quotation2 token tokens type
 
-UTILS		= free print utils utils2
+UTILS		= free print utils utils2 utils3
 
 EXECUTION	= execution signals redirection
 
