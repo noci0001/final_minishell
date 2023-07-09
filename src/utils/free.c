@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/09 15:55:55 by snocita          ###   ########.fr       */
+/*   Created: 2023/07/09 16:36:18 by snocita           #+#    #+#             */
+/*   Updated: 2023/07/09 16:36:20 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../headers/minishell.h"
 

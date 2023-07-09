@@ -12,8 +12,6 @@ MAIN		= main
 
 BUILTINS	= is_builtin ft_cd ft_cd2 ft_echo ft_env ft_export ft_pwd ft_unset
 
-DEBUG		= debug
-
 PARSING		= quotation quotation2 token tokens type
 
 UTILS		= free print utils utils2 utils3
@@ -35,7 +33,6 @@ all:		$(NAME)
 $(NAME):	$(OBJ_DIR) $(OBJ)
 	@make -sC libft/
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -lreadline
-	@touch src/debug/debugging.txt
 
 %.o: %.c
 	@${CC} ${CFLAGS} -c $< -o $@
@@ -51,10 +48,11 @@ fclean:
 	@make fclean -C libft/
 	@rm -f obj/*.o
 	@rm -rf obj/
-	@rm src/main/*.o src/builtins/*.o src/utils/*.o src/parsing/*.o src/execution/*.o src/debug/*.o
+	@rm src/main/*.o src/builtins/*.o src/utils/*.o src/parsing/*.o src/execution/*.o
 	@rm -f $(NAME)
-	@rm -rf src/debug/debugging.txt
+	@rm -rf minishell.dSYM/
 	@rm -rf minishell.dSYM
+	@rm -rf minishell
 
 re:		fclean all
 

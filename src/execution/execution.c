@@ -5,13 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/09 15:50:14 by snocita          ###   ########.fr       */
+/*   Created: 2023/07/09 16:37:53 by snocita           #+#    #+#             */
+/*   Updated: 2023/07/09 16:43:47 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../headers/minishell.h"
+
+char	**fill_this_little_tight_token(t_token *token, char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (token && token->type < TRUNC)
+	{
+		tab[i] = ft_strdup(token->str);
+		if (!tab[i])
+		{
+			while (i > 0)
+				free(tab[--i]);
+			free(tab);
+			return (NULL);
+		}
+		i++;
+		token = token->next;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
 
 // converts token into double pointer
 char	**cmd_tab(t_token *start)
@@ -33,22 +54,7 @@ char	**cmd_tab(t_token *start)
 	if (!(tab))
 		return (NULL);
 	token = start;
-	i = 0;
-	while (token && token->type < TRUNC)
-	{
-		tab[i] = ft_strdup(token->str);
-		if (!tab[i])
-		{
-			while (i > 0)
-				free(tab[--i]);
-			free(tab);
-			return (NULL);
-		}
-		i++;
-		token = token->next;
-	}
-	tab[i] = NULL;
-	return (tab);
+	return (fill_this_little_tight_token(token, tab));
 }
 
 int	run_cmd(char **args, t_env *env, t_cmd *cmd)
@@ -72,7 +78,6 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 			ft_memdel(env_to_str);
 			execve(cmd->start->path, args, env_array);
 			exit(1);
-			// free_tab(env_array);
 		}
 		else if (pid > 0)
 			waitpid(pid, NULL, 0);

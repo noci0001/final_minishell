@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/09 15:51:37 by snocita          ###   ########.fr       */
+/*   Created: 2023/07/09 16:10:18 by snocita           #+#    #+#             */
+/*   Updated: 2023/07/09 16:46:46 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../headers/minishell.h"
 
@@ -115,7 +114,8 @@ int	cmd_validation(t_cmd	*cmd)
 	}
 	path = ft_get_env(cmd->env, "PATH") + 4;
 	splitted_env = ft_split(path, ':');
-	if (check_splitted_env(cmd, splitted_env) == 0)
-		free_double_arr(splitted_env);
+	if (check_splitted_env(cmd, splitted_env) == 1)
+		return (1);
+	free_double_arr(splitted_env);
 	return (0);
 }
