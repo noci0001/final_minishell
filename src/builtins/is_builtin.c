@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:51:59 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:40:18 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:44:28 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	is_builtin(t_cmd	*cmd)
 	else if (is_exact_match(cmd->start->str, "env"))
 		return (ft_env(cmd->env));
 	else
-		return (0);
+		return (SUCCESS);
 }

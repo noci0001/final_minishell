@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:36:35 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 18:04:54 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 
 # define UNSET 0
 # define EXPORT 1
+
+//ERROR CODES
+# define SUCCESS 0
+# define GENERALERROR 1
+# define MISUSEOFBUILTINS 2
+# define CANNOTEXECUTE 126
+# define COMMANDNOTFOUND 127
 
 //CHECK IF TO LEAVE
 # define EMPTY 0
@@ -93,6 +100,7 @@ struct s_cmd
 {
 	t_token	*start;
 	t_env	*env;
+	t_env	*exit_code;
 	int		exit;
 	int		ret;
 	char	*input;
@@ -204,4 +212,7 @@ t_token	*loop_through_line(char *line, int index);
 int		next_alloc(char *line, int *i);
 char	*get_value_from_before_equal(char	*str, int index);
 int		unexpected_token_message(t_token	*token, t_cmd	*cmd, int version);
+t_env	*add_exit_code_key_value(t_env	*env, t_cmd	*cmd);
+int		decide_exit_code(t_cmd	*cmd, int ret);
+
 #endif

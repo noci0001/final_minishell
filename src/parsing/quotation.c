@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 14:36:11 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 18:25:35 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	quote_check(t_cmd *cmd, char **line)
 	{
 		printf("\033[0;32mMinishelly$\033[0m: syntax error with open quotes\n");
 		ft_memdel(*line);
-		cmd->ret = 2;
+		cmd->ret = MISUSEOFBUILTINS;
 		cmd->start = NULL;
 		return (1);
 	}
@@ -67,8 +67,16 @@ void	check_expansion(t_cmd *cmd, t_token *token)
 	char	*new_value;
 
 	i = 0;
-	if (token->str[0] == '$' && token->exp_disabled != 1)
-		expansion_function(cmd, token);
+	if (token->str[0] == '$' && token->str[1] == '?')
+	{
+		cmd->start = NULL;
+		return((void)printf("Exit code: %d\n", cmd->ret));
+	}
+	else
+	{
+		if (token->str[0] == '$' && token->exp_disabled != 1)
+			expansion_function(cmd, token);
+	}
 	while (token->str && token->str[i])
 	{
 		if (token->str[i] == '$' && token->exp_disabled != 1)

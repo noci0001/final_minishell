@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:37:53 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 16:43:47 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 18:14:15 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ char	**cmd_tab(t_token *start)
 	return (fill_this_little_tight_token(token, tab));
 }
 
+int	decide_exit_code(t_cmd	*cmd, int ret)
+{
+	if (ret == -1)
+	{
+		cmd->start = NULL;
+		cmd->ret = CANNOTEXECUTE;
+		return (CANNOTEXECUTE);
+	}
+	return (126);
+}
+
 int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 {
 	char	*env_to_str;
@@ -66,7 +77,9 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 	if (cmd_validation(cmd) != 1)
 	{
 		printf("Minishelly: command %s not found\n", cmd->start->str);
-		return (0);
+		cmd->ret = COMMANDNOTFOUND;
+		cmd->start = NULL;
+		return (cmd->ret);
 	}
 	else
 	{
@@ -77,7 +90,7 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 			env_array = ft_split(env_to_str, '\n');
 			ft_memdel(env_to_str);
 			execve(cmd->start->path, args, env_array);
-			exit(1);
+			exit(CANNOTEXECUTE);
 		}
 		else if (pid > 0)
 			waitpid(pid, NULL, 0);
@@ -89,6 +102,7 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 void	program_exit(t_cmd *cmd)
 {
 	cmd->exit = 1;
+	cmd->ret = GENERALERROR;
 	free_token(cmd->start);
 	exit(1);
 }

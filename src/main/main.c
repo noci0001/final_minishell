@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:36:38 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 16:36:40 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:31:55 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,27 @@ void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)
 	obtain_envp(cmd, envp);
 	sig_handler();
 	increase_shlvl(cmd->env, cmd);
+	// add_exit_code_key_value(cmd->env, cmd);
+}
+
+t_env	*add_exit_code_key_value(t_env	*env, t_cmd	*cmd)
+{
+	t_env	*exit_code;
+	char	**key_values_exit_code;
+
+	while (env->next != NULL)
+		env = env->next;
+	exit_code = malloc(sizeof(t_env *));
+	exit_code->value = ft_strdup("?=0");
+	key_values_exit_code = ft_split(exit_code->value, '=');
+	exit_code->key_value[0] = key_values_exit_code[0];
+	exit_code->key_value[1] = key_values_exit_code[1];
+	env->next = exit_code;
+	exit_code->next = NULL;
+	exit_code->prev = env;
+	cmd->exit_code = exit_code;
+
+	return (env);
 }
 
 //echo -n hello there | cat -n | ls

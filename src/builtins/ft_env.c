@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:21:22 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:15:44 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:44:18 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	obtain_envp(t_cmd *cmd, char **envp)
 	}
 	if (env)
 		env->next = NULL;
-	return (0);
+	return (SUCCESS);
 }
 
 char	*env_to_str_func(t_env *lst)
