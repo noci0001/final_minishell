@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:36:17 by snocita          ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:51:37 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../headers/minishell.h"
 
@@ -86,6 +87,7 @@ int	check_splitted_env(t_cmd *cmd, char **splitted_env)
 		{
 			if (cmd->start->type == 1)
 				cmd->start->path = ft_strdup(tmp2);
+			free_double_arr(splitted_env);
 			free(tmp2);
 			return (1);
 		}

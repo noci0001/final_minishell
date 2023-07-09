@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 11:58:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:37:07 by snocita          ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:51:16 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../headers/minishell.h"
 
@@ -52,6 +53,8 @@ void	free_token(t_token *start)
 		ft_memdel(start->prev);
 	}
 	if (start)
+	{
+		ft_memdel(start->str);
 		ft_memdel(start);
 }
 

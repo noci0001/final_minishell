@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 14:32:31 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:39:17 by snocita          ###   ########.fr       */
+/*   Created: Invalid Date        by              +#+  #+#    #+#             */
+/*   Updated: 2023/07/09 15:50:49 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../headers/minishell.h"
 
@@ -16,7 +17,7 @@ void	sig_c(int signal)
 {
 	if (signal)
 	{
-		// rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
