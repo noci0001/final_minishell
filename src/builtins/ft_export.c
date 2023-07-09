@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 13:21:14 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 14:33:54 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:14:40 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-char *get_value_before_equal(char *str)
+char	*get_value_before_equal(char *str)
 {
-	char *value;
-	size_t i;
+	char	*value;
+	size_t	i;
 
 	i = 0;
 	if (ft_strchr(str, '=') == NULL)
@@ -42,9 +42,9 @@ char *get_value_before_equal(char *str)
 	return (value);
 }
 
-t_env *is_inside_envp(t_env *envp, t_cmd *cmd, int check, char	*str)
+t_env	*is_inside_envp(t_env *envp, t_cmd *cmd, int check, char	*str)
 {
-	char *to_export;
+	char	*to_export;
 
 	if (str != NULL)
 		to_export = ft_strdup(str);
@@ -69,11 +69,11 @@ t_env *is_inside_envp(t_env *envp, t_cmd *cmd, int check, char	*str)
 	return (NULL);
 }
 
-int ft_export(t_cmd *cmd, t_env *envp)
+int	ft_export(t_cmd *cmd, t_env *envp)
 {
-	t_env *next_node;
-	t_env *node_ptr;
-	t_env *last_node;
+	t_env	*next_node;
+	t_env	*node_ptr;
+	t_env	*last_node;
 
 	next_node = NULL;
 	if (is_arg_absent(cmd, envp, EXPORT) == 1)

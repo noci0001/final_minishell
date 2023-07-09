@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 19:55:47 by snocita           #+#    #+#             */
-/*   Updated: 2023/06/30 11:33:02 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 12:48:22 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void debug_token_interception(char *token, int	token_type)
 		debug_write("INPUT", 1);
 	else if (token_type == PIPE)
 		debug_write("🚭 PIPE 🚭", 1);
-	else if (token_type == END)
-		debug_write("END", 1);
+	else if (token_type == HEREDOC)
+		debug_write("HEREDOC", 1);
 	else
 		debug_write("🔴 EMPTY 🔴", 1);
 	debug_write("\n",0);

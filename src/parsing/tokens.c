@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:40:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:02:22 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:00:36 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,16 @@ t_token	*next_token(char *line, int *i)
 	j = 0;
 	c = ' ';
 	disable_exp = 0;
-	if (!(token = malloc(sizeof(t_token)))
-	|| !(token->str = malloc(sizeof(char) * next_alloc(line, i))))
+	token = malloc(sizeof(t_token));
+	token->str = malloc(sizeof(char) * next_alloc(line, i));
+	if (!token || !(token->str))
 		return (NULL);
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
 		if (c == ' ' && (line[*i] == '\'' || line[*i] == '\"'))
 		{
 			if ((ft_strchr(line, '$') != NULL && line[*i] == '\''))
-				token->exp_disabled = 1;	
+				token->exp_disabled = 1;
 			c = line[(*i)++];
 		}
 		else if (c != ' ' && line[*i] == c)
@@ -99,7 +100,11 @@ t_token	*next_token(char *line, int *i)
 	return (token);
 }
 
-
+// token->next = (prev) ? prev->next : cmd->start;
+// prev = (prev) ? prev : token;
+// prev->next->prev = token;
+// prev->next = (cmd->start->prev) ? prev->next : token;
+// cmd->start = (cmd->start->prev) ? cmd->start->prev : cmd->start;
 void	squish_args(t_cmd *cmd)
 {
 	t_token	*token;
@@ -117,11 +122,21 @@ void	squish_args(t_cmd *cmd)
 			if (token->next)
 				token->next->prev = token->prev;
 			token->prev = prev;
-			token->next = (prev) ? prev->next : cmd->start;
-			prev = (prev) ? prev : token;
+			if (prev != NULL)
+				token->next = prev->next;
+			else
+				token->next = cmd->start;
+			if (prev == NULL)
+				prev = token;
 			prev->next->prev = token;
-			prev->next = (cmd->start->prev) ? prev->next : token;
-			cmd->start = (cmd->start->prev) ? cmd->start->prev : cmd->start;
+			if (cmd->start->prev != NULL)
+				prev->next = prev->next;
+			else
+				prev->next = token;
+			if (cmd->start->prev != NULL)
+				cmd->start = cmd->start->prev;
+			else
+				cmd->start = cmd->start;
 		}
 		token = token->next;
 	}
@@ -144,12 +159,10 @@ void	type_arg(t_token *token, int separator)
 		token->type = HEREDOC;
 	else if (ft_strcmp(token->str, "|") == 0 && separator == 0)
 		token->type = PIPE;
-	else if (token->prev == NULL || token->prev->type >= TRUNC )
+	else if (token->prev == NULL || token->prev->type >= TRUNC)
 		token->type = CMD;
 	else
 		token->type = ARG;
-	// if (token->str[0] == '-' && token->prev->type == CMD)
-	// 	token->type = FLAG;
 }
 
 t_token	*get_tokens(char *line)
@@ -167,8 +180,6 @@ t_token	*get_tokens(char *line)
 	ft_skip_space(line, &i);
 	while (line[i])
 	{
-		// if (line[i] == '\'')
-		// 	squote *= -1;
 		sep = ignore_sep(line, i);
 		next = next_token(line, &i);
 		next->prev = prev;
@@ -178,7 +189,6 @@ t_token	*get_tokens(char *line)
 		type_arg(next, sep);
 		ft_skip_space(line, &i);
 	}
-	// if (squote == 1)
 	if (next)
 		next->next = NULL;
 	while (next && next->prev)

@@ -1,7 +1,7 @@
 NAME	= minishell
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g -I headers/ -I libft/libft.a
+CFLAGS		= -Wall -Wextra -Werror -g -I headers/ -I libft/libft.a
 RM			= rm -rf
 
 LIBFT		= -L libft -lft
@@ -10,7 +10,7 @@ HEADER		= minshell.h
 
 MAIN		= main
 
-BUILTINS	= is_builtin ft_cd ft_echo ft_env ft_export ft_pwd ft_unset
+BUILTINS	= is_builtin ft_cd ft_cd2 ft_echo ft_env ft_export ft_pwd ft_unset
 
 DEBUG		= debug
 

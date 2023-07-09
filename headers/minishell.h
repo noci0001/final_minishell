@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:15:54 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:12:57 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,11 +183,11 @@ void	redirection_out(char *str);
 void	double_redirection(char *str);
 void	here_doc(char *str);
 int		is_arg_absent(t_cmd	*cmd, t_env	*envp, int check);
-
 void	check_expansion(t_cmd	*cmd, t_token	*token);
-char	*expansion_string(t_cmd	*cmd, char	*str, int	index);
+char	*expansion_string(t_cmd	*cmd, char	*str, int index);
 void	increase_shlvl(t_env	*env, t_cmd	*cmd);
 int		update_pwd(t_env	*env);
+void	update_oldpwd(t_env	*env, char	*old_cwd);
 int		navigate_home(t_env	*env, int is_tilde, t_cmd	*cmd);
 int		navigate_forward(t_env	*env, char	*arg);
 int		navigate_backward(t_env	*env);
@@ -196,5 +196,6 @@ void	sig_d(int signal);
 void	sig_handler(void);
 int		go_places(char	*arg, t_env	*env);
 void	redirection_handler(t_token *token);
+int		loop_through_tokens(t_token	*token);
 
 #endif

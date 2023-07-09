@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:21:22 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 19:47:35 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:14:03 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void add_key_value(t_env	*env)
+void	add_key_value(t_env	*env)
 {
 	char	**key_value_array;
 
@@ -42,7 +42,6 @@ int	obtain_envp(t_cmd *cmd, char **envp)
 		}
 		new->value = ft_strdup(envp[i]);
 		add_key_value(new);
-		// printf("KEY: %s\tVALUE: %s\n", new->key_value[0], new->key_value[1]);
 		new->prev = env;
 		if (env)
 			env->next = new;
