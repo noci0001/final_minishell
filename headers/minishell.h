@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:12:57 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 18:00:50 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,8 @@ int		navigate_backward(t_env	*env);
 void	sig_c(int signal);
 void	sig_d(int signal);
 void	sig_handler(void);
+void	signal_inprocess(void);
+void	turn_off_echo(void);
 int		go_places(char	*arg, t_env	*env);
 void	redirection_handler(t_token *token);
 int		loop_through_tokens(t_token	*token);

@@ -6,7 +6,7 @@
 /*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:12:19 by amurawsk         ###   ########.fr       */
+/*   Updated: 2023/07/09 18:02:08 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int run_cmd(char **args, t_env *env, t_cmd *cmd)
 	else
 	{
 		pid = fork();
+		signal_inprocess();
 		if (pid == 0)
 		{	
 			env_to_str = env_to_str_func(env);
