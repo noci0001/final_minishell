@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by              +#+  #+#    #+#             */
-/*   Updated: 2023/07/09 15:51:16 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:55:55 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	free_token(t_token *start)
 	{
 		ft_memdel(start->str);
 		ft_memdel(start);
+	}
 }
 
 void	free_double_arr(char **str)
