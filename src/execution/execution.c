@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:40:26 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:26:12 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
 // converts token into double pointer
-char **cmd_tab(t_token *start)
+char	**cmd_tab(t_token *start)
 {
-	t_token *token;
-	char **tab;
-	int i;
+	t_token	*token;
+	char	**tab;
+	int		i;
 
 	if (!start)
 		return (NULL);
@@ -47,19 +47,14 @@ char **cmd_tab(t_token *start)
 		token = token->next;
 	}
 	tab[i] = NULL;
-	// while (token)
-	// {
-	// 	free(token->str);
-	// 	token = token->next;
-	// }
 	return (tab);
 }
 
-int run_cmd(char **args, t_env *env, t_cmd *cmd)
+int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 {
-	char *env_to_str;
-	char **env_array;
-	pid_t pid;
+	char	*env_to_str;
+	char	**env_array;
+	pid_t	pid;
 
 	if (cmd_validation(cmd) != 1)
 	{
@@ -70,7 +65,7 @@ int run_cmd(char **args, t_env *env, t_cmd *cmd)
 	{
 		pid = fork();
 		if (pid == 0)
-		{	
+		{
 			env_to_str = env_to_str_func(env);
 			env_array = ft_split(env_to_str, '\n');
 			ft_memdel(env_to_str);
@@ -84,25 +79,23 @@ int run_cmd(char **args, t_env *env, t_cmd *cmd)
 	return (0);
 }
 
-void program_exit(t_cmd *cmd)
+void	program_exit(t_cmd *cmd)
 {
 	cmd->exit = 1;
 	free_token(cmd->start);
-	// free_env(cmd->env);
-	// free(cmd->input);
 	exit(1);
 }
 
-void execution(t_cmd *cmd, t_token *token)
+void	execution(t_cmd *cmd, t_token *token)
 {
-	char **cmd_array;
-	int i;
+	char	**cmd_array;
+	int		i;
 
 	if (is_exact_match(cmd->start->str, "exit"))
 		program_exit(cmd);
 	redirection_handler(token);
 	if (is_builtin(cmd) == 1)
-		return;
+		return ;
 	else
 	{
 		cmd_array = cmd_tab(token);
@@ -112,5 +105,5 @@ void execution(t_cmd *cmd, t_token *token)
 		else
 			free_double_arr(cmd_array);
 	}
-	return;
+	return ;
 }

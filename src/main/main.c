@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:36:11 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 14:38:59 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void increase_shlvl(t_env	*env, t_cmd	*cmd)
+void	increase_shlvl(t_env	*env, t_cmd	*cmd)
 {
 	t_env	*shlvl;
 	char	*level;
 	int		level_number;
+
 	shlvl = is_inside_envp(env, cmd, 0, "SHLVL");
 	level = ft_strdup(shlvl->key_value[1]);
 	level_number = ft_atoi(level);

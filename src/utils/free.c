@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 11:58:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 21:05:50 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:37:07 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_env(t_env *env)
 	ft_memdel(env);
 }
 
-void	free_env_list(t_env *env)
+int	free_env_list(t_env *env)
 {
 	t_env	*temp;
 
@@ -40,6 +40,7 @@ void	free_env_list(t_env *env)
 		ft_strdel(&temp->key_value[1]);
 		free(temp);
 	}
+	return (1);
 }
 
 void	free_token(t_token *start)
@@ -51,10 +52,7 @@ void	free_token(t_token *start)
 		ft_memdel(start->prev);
 	}
 	if (start)
-	{
-		// ft_memdel(start->str);
 		ft_memdel(start);
-	}
 }
 
 void	free_double_arr(char **str)

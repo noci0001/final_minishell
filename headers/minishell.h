@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:12:57 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:36:35 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int		cmd_validation(t_cmd *cmd);
 char	*env_to_str_func(t_env *lst);
 size_t	size_env(t_env *lst);
 void	free_tab(char **tab);
-void	free_env_list(t_env *env);
+int		free_env_list(t_env *env);
 int		arg_absent(t_cmd	*cmd, t_env	*envp, int check);
 t_env	*is_inside_envp(t_env	*envp, t_cmd	*cmd, int check, char	*str);
 void	redirection_in(char *str);
@@ -197,5 +197,11 @@ void	sig_handler(void);
 int		go_places(char	*arg, t_env	*env);
 void	redirection_handler(t_token *token);
 int		loop_through_tokens(t_token	*token);
-
+int		is_last_valid_arg(t_token *token);
+char	*space_line(char *line);
+char	*space_alloc(char *line);
+t_token	*loop_through_line(char *line, int index);
+int		next_alloc(char *line, int *i);
+char	*get_value_from_before_equal(char	*str, int index);
+int		unexpected_token_message(t_token	*token, t_cmd	*cmd, int version);
 #endif

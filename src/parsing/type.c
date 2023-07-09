@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:52:44 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:03:47 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:30:51 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
 //check if the token type is corresponding
-int		is_type(t_token *token, int type)
+int	is_type(t_token *token, int type)
 {
 	if (token && token->type == type)
 		return (1);
@@ -27,7 +27,7 @@ int		is_type(t_token *token, int type)
 //A -> APPEND '>>'
 //I -> INPUT_REDIRECTION '<'
 //E -> END ';'
-int		is_types(t_token *token, char *types)
+int	is_types(t_token *token, char *types)
 {
 	if (ft_strchr(types, ' ') && is_type(token, EMPTY))
 		return (1);
@@ -51,7 +51,7 @@ int		is_types(t_token *token, char *types)
 //loops through all the tokens and
 // check if the tokens are between the options
 // options are -> XxTAIPE
-int		has_type(t_token *token, int type)
+int	has_type(t_token *token, int type)
 {
 	while (token)
 	{

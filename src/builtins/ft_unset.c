@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:01:07 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 14:34:00 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:44:44 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int	ft_unset(t_cmd *cmd, t_env *env)
+int	absent_or_not(t_cmd	*cmd, t_env	*env)
 {
 	char	*value_before_equal;
-	t_env	*node_ptr;
 
 	if (is_arg_absent(cmd, env, UNSET) == 1)
 	{
@@ -32,15 +31,20 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 			return (1);
 		}
 	}
+	return (1);
+}
+
+int	ft_unset(t_cmd *cmd, t_env *env)
+{
+	t_env	*node_ptr;
+
+	absent_or_not(cmd, env);
 	node_ptr = is_inside_envp(env, cmd, UNSET, NULL);
 	if (node_ptr != NULL)
 	{
 		node_ptr->prev->next = node_ptr->next;
 		if (node_ptr->next != NULL)
 			node_ptr->next->prev = node_ptr->prev;
-		// free_double_arr(node_ptr->key_value);
-		// free(node_ptr->value);
-		// free(node_ptr);
 	}
 	return (1);
 }

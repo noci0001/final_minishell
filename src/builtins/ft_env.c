@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:21:22 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:14:03 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:15:44 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	add_key_value(t_env	*env)
 	env->key_value[0] = ft_strdup(key_value_array[0]);
 	env->key_value[1] = ft_strdup(key_value_array[1]);
 	free_double_arr(key_value_array);
-
-	return ;
 }
 
 int	obtain_envp(t_cmd *cmd, char **envp)
@@ -36,10 +34,7 @@ int	obtain_envp(t_cmd *cmd, char **envp)
 	{
 		new = malloc(sizeof(t_env));
 		if (!new)
-		{
-			free_env_list(cmd->env);
-			return (1);
-		}
+			return (free_env_list(cmd->env));
 		new->value = ft_strdup(envp[i]);
 		add_key_value(new);
 		new->prev = env;
