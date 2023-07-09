@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:36:11 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:23:34 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@ void increase_shlvl(t_env	*env, t_cmd	*cmd)
 	t_env	*shlvl;
 	char	*level;
 	int		level_number;
+	char	*itoa_string;
+
 	shlvl = is_inside_envp(env, cmd, 0, "SHLVL");
 	level = ft_strdup(shlvl->key_value[1]);
 	level_number = ft_atoi(level);
 	level_number++;
 	free(shlvl->value);
 	free(shlvl->key_value[1]);
-	shlvl->key_value[1] = ft_itoa(level_number);
-	shlvl->value = ft_strjoin("SHLVL=", ft_itoa(level_number));
+	itoa_string = ft_itoa(level_number);
+	shlvl->key_value[1] = ft_strdup(itoa_string);
+	shlvl->value = ft_strjoin("SHLVL=", itoa_string);
+	free(itoa_string);
+	free(level);
 }
 
 void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)

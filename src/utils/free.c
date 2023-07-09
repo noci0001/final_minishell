@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 11:58:40 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/05 21:05:50 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:04:20 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_token(t_token *start)
 	}
 	if (start)
 	{
-		// ft_memdel(start->str);
+		ft_memdel(start->str);
 		ft_memdel(start);
 	}
 }

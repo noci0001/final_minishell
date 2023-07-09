@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:55:11 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/07 19:25:46 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:04:25 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	cmd_validation(t_cmd	*cmd)
 		{
 			if (cmd->start->type == 1)
 				cmd->start->path = ft_strdup(tmp2);
+			free_double_arr(splitted_env);
 			free(tmp2);
 			return (1);
 		}

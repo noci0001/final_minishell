@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:21:01 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:12:39 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:18:21 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int	ft_echo(t_token *token, t_cmd *cmd, t_env *env)
 		ft_putchar_fd('\n', 1);
 		return (1);
 	}
-	loop_through_tokensy(token);
+	loop_through_tokens(token);
 	return (1);
 }

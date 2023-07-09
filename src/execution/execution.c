@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 21:40:26 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:12:19 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char **cmd_tab(t_token *start)
 	i = 0;
 	while (token && token->type < TRUNC)
 	{
-		tab[i] = token->str;
+		tab[i] = ft_strdup(token->str);
 		if (!tab[i])
 		{
 			while (i > 0)
@@ -76,11 +76,12 @@ int run_cmd(char **args, t_env *env, t_cmd *cmd)
 			ft_memdel(env_to_str);
 			execve(cmd->start->path, args, env_array);
 			exit(1);
-			free_tab(env_array);
+			// free_tab(env_array);
 		}
 		else if (pid > 0)
 			waitpid(pid, NULL, 0);
 	}
+	free(cmd->start->path);
 	return (0);
 }
 
@@ -96,21 +97,16 @@ void program_exit(t_cmd *cmd)
 void execution(t_cmd *cmd, t_token *token)
 {
 	char **cmd_array;
-	int i;
 
+	cmd_array = NULL;
 	if (is_exact_match(cmd->start->str, "exit"))
 		program_exit(cmd);
 	redirection_handler(token);
 	if (is_builtin(cmd) == 1)
 		return;
-	else
-	{
-		cmd_array = cmd_tab(token);
-		i = 0;
-		if (cmd_array)
-			cmd->ret = run_cmd(cmd_array, cmd->env, cmd);
-		else
-			free_double_arr(cmd_array);
-	}
+	cmd_array = cmd_tab(token);
+	if (cmd_array)
+		cmd->ret = run_cmd(cmd_array, cmd->env, cmd);
+	free_double_arr(cmd_array);
 	return;
 }

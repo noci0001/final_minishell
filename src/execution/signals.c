@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <samuelnocita@gmail.com>           +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:32:31 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/08 19:52:10 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/09 14:04:45 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void sig_c(int signal)
 {
     if (signal)
     {
-        // rl_replace_line("", 0);
+        //rl_replace_line("", 0);
         ft_putchar_fd('\n', STDOUT_FILENO);
         rl_on_new_line();
         rl_redisplay();
