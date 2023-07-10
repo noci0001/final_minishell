@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 16:37:53 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 18:14:15 by snocita          ###   ########.fr       */
+/*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
+/*   Updated: 2023/07/10 10:01:14 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 	else
 	{
 		pid = fork();
+		signal_inprocess();
 		if (pid == 0)
 		{
 			env_to_str = env_to_str_func(env);

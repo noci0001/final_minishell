@@ -1,10 +1,10 @@
 NAME	= minishell
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g -I headers/ -I libft/libft.a
+CFLAGS		= -Wall -Wextra -Werror -g -I headers/ -I libft/libft.a -I /usr/local/Cellar/readline/8.1.1/include/
 RM			= rm -rf
 
-LIBFT		= -L libft -lft
+LIBFT		= -L libft -lft -L /usr/local/Cellar/readline/8.1.1/lib/
 
 HEADER		= minshell.h
 
