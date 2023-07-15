@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 19:03:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:39:47 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/10 17:20:13 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	here_doc(char *str)
 
 void	redirection_handler(t_token *token)
 {
-	while (token && token->next != NULL)
+	while (token && token->next != NULL && token->type != PIPE)
 	{
 		if (token->type == HEREDOC)
 		{

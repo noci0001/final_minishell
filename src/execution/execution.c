@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/10 10:01:14 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/11 01:22:43 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 {
 	char	*env_to_str;
 	char	**env_array;
-	pid_t	pid;
 
+	if (is_builtin_fork(cmd) == 0)
+		return (0);
 	if (cmd_validation(cmd) != 1)
 	{
 		printf("Minishelly: command %s not found\n", cmd->start->str);
@@ -83,18 +84,12 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 	}
 	else
 	{
-		pid = fork();
 		signal_inprocess();
-		if (pid == 0)
-		{
-			env_to_str = env_to_str_func(env);
-			env_array = ft_split(env_to_str, '\n');
-			ft_memdel(env_to_str);
-			execve(cmd->start->path, args, env_array);
-			exit(CANNOTEXECUTE);
-		}
-		else if (pid > 0)
-			waitpid(pid, NULL, 0);
+		env_to_str = env_to_str_func(env);
+		env_array = ft_split(env_to_str, '\n');
+		ft_memdel(env_to_str);
+		execve(cmd->start->path, args, env_array);
+		exit(CANNOTEXECUTE);
 	}
 	free(cmd->start->path);
 	return (0);
@@ -111,16 +106,21 @@ void	program_exit(t_cmd *cmd)
 void	execution(t_cmd *cmd, t_token *token)
 {
 	char	**cmd_array;
+	int		i;
 
-	cmd_array = NULL;
-	if (is_exact_match(cmd->start->str, "exit"))
-		program_exit(cmd);
-	redirection_handler(token);
-	if (is_builtin(cmd) == 1)
-		return ;
-	cmd_array = cmd_tab(token);
-	if (cmd_array)
-		cmd->ret = run_cmd(cmd_array, cmd->env, cmd);
+	i = 0;
+	do_pipes(cmd, cmd->fd);
+	while (i <= cmd->nb_pipes)
+	{
+		cmd->current_cmd = token;
+		cmd->ret = is_builtin(cmd);
+		cmd_array = cmd_tab(cmd->current_cmd);
+		cmd->current_cmd = next_run(cmd->current_cmd, SKIP);
+		if (cmd->ret == -1)
+			forking_function(cmd_array, cmd, i);
+		i++;
+	}
+	close_fd(cmd->fd, cmd->nb_pipes);
 	free_double_arr(cmd_array);
-	return ;
+	wait_function(cmd);
 }

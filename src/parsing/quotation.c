@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 18:25:35 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/11 01:22:03 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	quote_check(t_cmd *cmd, char **line)
 		printf("\033[0;32mMinishelly$\033[0m: syntax error with open quotes\n");
 		ft_memdel(*line);
 		cmd->ret = MISUSEOFBUILTINS;
-		cmd->start = NULL;
+		cmd->current_cmd = NULL;
 		return (1);
 	}
 	return (0);
@@ -46,6 +46,8 @@ void	parse(char *line, t_cmd *cmd)
 		check_expansion(cmd, token);
 		token = token->next;
 	}
+	cmd->nb_pipes = how_many_pipes(cmd->start);
+	malloc_fds(cmd);
 }
 
 void	expansion_function(t_cmd	*cmd, t_token	*token)

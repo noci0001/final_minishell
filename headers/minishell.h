@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/10 10:00:56 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/11 00:18:03 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,13 @@ typedef struct s_env
 struct s_cmd
 {
 	t_token	*start;
+	t_token	*current_cmd;
 	t_env	*env;
 	t_env	*exit_code;
 	int		exit;
 	int		ret;
+	int		**fd;
+	int		nb_pipes;
 	char	*input;
 };
 
@@ -216,5 +219,15 @@ char	*get_value_from_before_equal(char	*str, int index);
 int		unexpected_token_message(t_token	*token, t_cmd	*cmd, int version);
 t_env	*add_exit_code_key_value(t_env	*env, t_cmd	*cmd);
 int		decide_exit_code(t_cmd	*cmd, int ret);
+int		is_builtin_fork(t_cmd	*cmd);
+int		how_many_pipes(t_token *start);
+void	do_pipes(t_cmd	*cmd, int	**fd);
+void	close_pipes(int **array, int pipes_number);
+void	close_fd_childs(int **arrayfd, int pipes_number, int currentfd);
+t_token	*next_run(t_token *token, int skip);
+void	malloc_fds(t_cmd *cmd);
+void	forking_function(char **args, t_cmd *cmd, int i);
+void	wait_function(t_cmd *cmd);
+void	close_fd(int **arrayfd, int pipes_number);
 
 #endif

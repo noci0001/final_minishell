@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/10 10:02:21 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/11 01:20:17 by amurawsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_env	*add_exit_code_key_value(t_env	*env, t_cmd	*cmd)
 	exit_code->next = NULL;
 	exit_code->prev = env;
 	cmd->exit_code = exit_code;
-
 	return (env);
 }
 
@@ -74,6 +73,7 @@ int	main(int ac, char **av, char **envp)
 	cmd.input = NULL;
 	cmd.exit = 0;
 	cmd.ret = 0;
+	cmd.fd = NULL;
 	cmd.start = NULL;
 	while (cmd.exit == 0)
 	{
