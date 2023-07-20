@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:42:42 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/10 10:00:56 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 14:30:45 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@
 # define EMPTY 0
 # define CMD 1
 # define ARG 2
-# define TRUNC 3 
+# define TRUNC 3
 # define APPEND 4
 # define INPUT 5
 # define PIPE 6
-# define HEREDOC 7
+# define END 7
+# define HEREDOC 8
 
 # define SKIP 1
 # define NOSKIP 0
@@ -102,9 +103,28 @@ struct s_cmd
 	t_env	*env;
 	t_env	*exit_code;
 	int		exit;
+	int		in;
+	int		out;
+	int		fdin;
+	int		fdout;
+	int		pipin;
+	int		pipout;
+	int		pid;
+	int		responsibility;
+	int		parent;
+	int		last;
 	int		ret;
+	int		no_exec;
 	char	*input;
 };
+
+typedef struct s_sig
+{
+	int				sigint;
+	int				sigquit;
+	int				exit_status;
+	pid_t			pid;
+}				t_sig;
 
 typedef struct s_valid
 {
@@ -175,10 +195,12 @@ void	free_token(t_token *start);
 void	print_double_array(char **str);
 int		check_for_duplicates(char	*to_export);
 void	free_env(t_env *env);
-void	execution(t_cmd	*cmd, t_token	*token);
+void	execution(t_cmd *cmd);
 char	**cmd_tab(t_token *start);
-void	program_exit(t_cmd	*cmd);
-int		run_cmd(char **args, t_env *env, t_cmd	*cmd);
+void	program_exit(t_cmd *cmd, char	**cmd_array);
+// int		run_cmd(char **args, t_env *env, t_cmd	*cmd);
+int		do_builtin(t_cmd	*cmd);
+void	run_cmd(t_cmd *cmd, t_token *token);
 int		cmd_validation(t_cmd *cmd);
 char	*env_to_str_func(t_env *lst);
 size_t	size_env(t_env *lst);
@@ -199,11 +221,15 @@ void	update_oldpwd(t_env	*env, char	*old_cwd);
 int		navigate_home(t_env	*env, int is_tilde, t_cmd	*cmd);
 int		navigate_forward(t_env	*env, char	*arg);
 int		navigate_backward(t_env	*env);
-void	sig_c(int signal);
-void	sig_d(int signal);
-void	sig_handler(void);
-void	signal_inprocess(void);
-void	turn_off_echo(void);
+// void	sig_c(int signal);
+// void	sig_d(int signal);
+// void	sig_handler(void);
+// void	signal_inprocess(void);
+// void	turn_off_echo(void);
+void	sig_int(int code);
+void	sig_quit(int code);
+void	sig_init(void);
+void	check_input_and_history(t_cmd	*cmd);
 int		go_places(char	*arg, t_env	*env);
 void	redirection_handler(t_token *token);
 int		loop_through_tokens(t_token	*token);
@@ -216,5 +242,23 @@ char	*get_value_from_before_equal(char	*str, int index);
 int		unexpected_token_message(t_token	*token, t_cmd	*cmd, int version);
 t_env	*add_exit_code_key_value(t_env	*env, t_cmd	*cmd);
 int		decide_exit_code(t_cmd	*cmd, int ret);
+t_token	*next_run(t_token *token, int skip);
+void	ft_close(int fd);
+void	reset_std(t_cmd *cmd);
+void	close_fds(t_cmd *cmd);
+void	reset_fds(t_cmd *cmd);
+void	redir_and_exec(t_cmd *cmd, t_token *token);
+int		has_pipe(t_token *token);
+void	redir(t_cmd *cmd, t_token *token, int type);
+void	input(t_cmd *cmd, t_token *token);
+int		cmdpipe(t_cmd *cmd);
+t_token	*next_sep(t_token *token, int skip);
+t_token	*prev_sep(t_token *token, int skip);
+t_token	*next_run(t_token *token, int skip);
+int		error_message(char *path);
+int		magic_box(char *path, char **args, t_env *env, t_cmd *cmd);
+char	*path_join(const char *s1, const char *s2);
+char	*check_dir(char *bin, char *command);
+int		exec_cmd(char **args, t_env *env, t_cmd *cmd);
 
 #endif

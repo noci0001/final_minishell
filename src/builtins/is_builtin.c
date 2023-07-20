@@ -6,13 +6,31 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:51:59 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 17:44:28 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 12:07:56 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
 int	is_builtin(t_cmd	*cmd)
+{
+	if (is_exact_match(cmd->start->str, "cd"))
+		return (1);
+	if (is_exact_match(cmd->start->str, "echo"))
+		return (1);
+	else if (is_exact_match(cmd->start->str, "pwd"))
+		return (1);
+	else if (is_exact_match(cmd->start->str, "export"))
+		return (1);
+	else if (is_exact_match(cmd->start->str, "unset"))
+		return (1);
+	else if (is_exact_match(cmd->start->str, "env"))
+		return (1);
+	else
+		return (SUCCESS);
+}
+
+int	do_builtin(t_cmd	*cmd)
 {
 	if (is_exact_match(cmd->start->str, "cd"))
 		return (ft_cd(cmd, cmd->env));

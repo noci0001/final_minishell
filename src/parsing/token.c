@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurawsk <amurawsk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:51:30 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 13:17:52 by amurawsk         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:57:42 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*next_run(t_token *token, int skip)
 		token = token->next;
 		if (token && token->type == CMD && token->prev == NULL)
 			;
-		else if (token && token->type == CMD)
+		else if (token && token->type == CMD && token->prev->type < END)
 			token = token->next;
 	}
 	return (token);

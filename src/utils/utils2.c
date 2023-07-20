@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:21:03 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:03:11 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 14:35:35 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	type_arg(t_token *token, int separator)
 
 void	squish_args2(t_cmd *cmd, t_token *token, t_token	*prev)
 {
+	while (is_last_valid_arg(prev) == 0)
+		prev = prev->prev;
 	token->prev->next = token->next;
 	if (token->next)
 		token->next->prev = token->prev;

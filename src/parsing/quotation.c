@@ -6,11 +6,13 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 13:50:33 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 18:25:35 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 12:08:29 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+t_sig	g_sig;
 
 // check for open quotes
 int	quote_check(t_cmd *cmd, char **line)
@@ -32,6 +34,10 @@ void	parse(char *line, t_cmd *cmd)
 {
 	t_token	*token;
 
+	signal(SIGINT, &sig_int);
+	signal(SIGQUIT, &sig_quit);
+	if (g_sig.sigint == 1)
+		cmd->ret = g_sig.exit_status;
 	if (quote_check(cmd, &line))
 		return ;
 	line = space_line(line);
@@ -70,7 +76,7 @@ void	check_expansion(t_cmd *cmd, t_token *token)
 	if (token->str[0] == '$' && token->str[1] == '?')
 	{
 		cmd->start = NULL;
-		return((void)printf("Exit code: %d\n", cmd->ret));
+		return ((void)printf("Exit code: %d\n", cmd->ret));
 	}
 	else
 	{

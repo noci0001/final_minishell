@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:36:18 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 18:32:07 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 15:16:46 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_env(t_env *env)
 	{
 		tmp = env;
 		env = env->next;
+		free(env->key_value[0]);
+		free(env->key_value[1]);
 		ft_memdel(tmp->value);
 		ft_memdel(tmp);
 	}
@@ -47,13 +49,13 @@ void	free_token(t_token *start)
 {
 	while (start && start->next)
 	{
-		ft_memdel(start->str);
+		// ft_memdel(start->str);
 		start = start->next;
 		ft_memdel(start->prev);
 	}
 	if (start)
 	{
-		ft_memdel(start->str);
+		// ft_memdel(start->str);
 		ft_memdel(start);
 	}
 }
@@ -61,15 +63,17 @@ void	free_token(t_token *start)
 void	free_double_arr(char **str)
 {
 	char	**temp;
+	int		i;
 
+	i = 0;
 	if (!str)
 		return ;
 	temp = str;
-	while (*str)
+	while (str[i])
 	{
-		if (*str && (*str != NULL))
-			free(*str);
-		str++;
+		if (str[i] && (str[i] != NULL))
+			free(str[i]);
+		i++;
 	}
 	if (temp != NULL)
 		free(temp);

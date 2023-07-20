@@ -4,7 +4,7 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g -I headers/ -I libft/libft.a -I /usr/local/Cellar/readline/8.1.1/include/
 RM			= rm -rf
 
-LIBFT		= -L libft -lft -L /usr/local/Cellar/readline/8.1.1/lib/
+LIBFT		= -L libft -lft
 
 HEADER		= minshell.h
 
@@ -16,7 +16,7 @@ PARSING		= quotation quotation2 token tokens type
 
 UTILS		= free print utils utils2 utils3
 
-EXECUTION	= execution signals redirection
+EXECUTION	= execution2 signals2 redirection fd execution_cmd
 
 SRC			= $(addsuffix .c, $(addprefix src/builtins/, $(BUILTINS))) \
 			$(addsuffix .c, $(addprefix src/main/, $(MAIN))) \

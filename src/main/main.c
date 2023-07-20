@@ -6,11 +6,13 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:22:16 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/10 10:02:21 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 15:15:07 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+t_sig	g_sig;
 
 void	increase_shlvl(t_env	*env, t_cmd	*cmd)
 {
@@ -34,8 +36,8 @@ void	increase_shlvl(t_env	*env, t_cmd	*cmd)
 
 void	init_struct(int ac, char **av, char **envp, t_cmd *cmd)
 {
-	turn_off_echo();
-	sig_handler();
+	// turn_off_echo();
+	// sig_handler();
 	if (ac != 1)
 		exit(1);
 	(void)av;
@@ -64,6 +66,14 @@ t_env	*add_exit_code_key_value(t_env	*env, t_cmd	*cmd)
 	return (env);
 }
 
+void	check_input_and_history(t_cmd	*cmd)
+{
+	if (cmd->input == NULL)
+		exit(0);
+	if (cmd->input && strlen(cmd->input) > 0)
+		add_history(cmd->input);
+}
+
 //echo -n hello there | cat -n | ls
 int	main(int ac, char **av, char **envp)
 {
@@ -74,18 +84,18 @@ int	main(int ac, char **av, char **envp)
 	cmd.input = NULL;
 	cmd.exit = 0;
 	cmd.ret = 0;
-	cmd.start = NULL;
+	cmd.in = dup(STDIN_FILENO);
+	cmd.out = dup(STDOUT_FILENO);
+	cmd.no_exec = 0;
 	while (cmd.exit == 0)
 	{
-		sig_handler();
+		// sig_handler();
+		sig_init();
 		cmd.input = readline("\033[0;32mMinishelly$\033[0m ");
-		if (cmd.input == NULL)
-			exit(0);
-		if (cmd.input && strlen(cmd.input) > 0)
-			add_history(cmd.input);
+		check_input_and_history(&cmd);
 		parse(cmd.input, &cmd);
 		if (cmd.start != NULL && check_line(&cmd, cmd.start))
-			execution(&cmd, cmd.start);
+			execution(&cmd);
 		free_token(cmd.start);
 	}
 	free_env(cmd.env);

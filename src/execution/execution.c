@@ -6,11 +6,13 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:25:35 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/10 10:01:14 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 15:06:48 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+t_sig	g_sig;
 
 char	**fill_this_little_tight_token(t_token *token, char **tab)
 {
@@ -84,7 +86,7 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 	else
 	{
 		pid = fork();
-		signal_inprocess();
+		// signal_inprocess();
 		if (pid == 0)
 		{
 			env_to_str = env_to_str_func(env);
@@ -100,21 +102,41 @@ int	run_cmd(char **args, t_env *env, t_cmd *cmd)
 	return (0);
 }
 
-void	program_exit(t_cmd *cmd)
+void	program_exit(t_cmd *cmd, char **cmd_array)
 {
 	cmd->exit = 1;
-	cmd->ret = GENERALERROR;
-	free_token(cmd->start);
-	exit(1);
+	ft_putstr_fd("exit ", STDERR_FILENO);
+	// cmd_array[1] ? ft_putendl_fd("❤️", STDERR_FILENO) : ft_putendl_fd("💚", STDERR_FILENO);
+	if (cmd_array[1] && cmd_array[2])
+	{
+		cmd->ret = 1;
+		ft_putendl_fd("Minishelly: exit: too many arguments", STDERR_FILENO);
+	}
+	else if (cmd_array[1] && ft_strisnum(cmd_array[1]) == 0)
+	{
+		cmd->ret = 255;
+		ft_putstr_fd("Minishelly: exit: ", STDERR_FILENO);
+		ft_putstr_fd(cmd_array[1], STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+	}
+	else if (cmd_array[1])
+		cmd->ret = ft_atoi(cmd_array[1]);
+	else
+		cmd->ret = 0;
 }
 
+//minishell
 void	execution(t_cmd *cmd, t_token *token)
 {
 	char	**cmd_array;
 
 	cmd_array = NULL;
 	if (is_exact_match(cmd->start->str, "exit"))
+	{
+		pritnf("yo\n");
 		program_exit(cmd);
+		printf("yo!\n");
+	}
 	redirection_handler(token);
 	if (is_builtin(cmd) == 1)
 		return ;

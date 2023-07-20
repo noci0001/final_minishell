@@ -6,7 +6,7 @@
 /*   By: snocita <snocita@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 14:52:44 by snocita           #+#    #+#             */
-/*   Updated: 2023/07/09 15:30:51 by snocita          ###   ########.fr       */
+/*   Updated: 2023/07/20 11:28:24 by snocita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,15 @@ t_token	*next_type(t_token *token, int type, int skip)
 	while (token && token->type != type)
 		token = token->next;
 	return (token);
+}
+
+int	has_pipe(t_token *token)
+{
+	while (token && is_type(token, END) == 0)
+	{
+		if (is_type(token, PIPE))
+			return (1);
+		token = token->next;
+	}
+	return (0);
 }
